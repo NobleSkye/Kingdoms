@@ -921,7 +921,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 	 * Returns a TownyPermissionChange object representing the change action
 	 *
 	 * @param player Player initiator
-	 * @param townBlockOwner Resident/Town with the targeted permissions change
+	 * @param townBlockOwner Resident/kingdom with the targeted permissions change
 	 * @param townBlock Targeted town block
 	 * @param split Permission arguments
 	 * @return a TownyPermissionChange object
@@ -936,7 +936,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 			if (townBlockOwner instanceof Town)
 				TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[resident/nation/ally/outsider]", "", ""));
 			if (townBlockOwner instanceof Resident)
-				TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[friend/town/ally/outsider]", "", ""));
+				TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[friend/kingdom/ally/outsider]", "", ""));
 
 			TownyMessaging.sendMessage(player, ChatTools.formatCommand("Type", "[build/destroy/switch/itemuse]", "", ""));
 			TownyMessaging.sendMessage(player, ChatTools.formatCommand("", "set perm", "[on/off]", "Toggle all permissions"));
@@ -994,8 +994,8 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 
 				if (split[0].equalsIgnoreCase("friend"))
 					split[0] = "resident";
-				else if (split[0].equalsIgnoreCase("town"))
-					split[0] = "nation";
+				else if (split[0].equalsIgnoreCase("kingdom"))
+					split[0] = "empire";
 				else if (split[0].equalsIgnoreCase("itemuse"))
 					split[0] = "item_use";
 
@@ -1022,8 +1022,8 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 					split[0] = "resident";
 
 					// reset the town to nation so the perm settings don't fail
-				else if (split[0].equalsIgnoreCase("town"))
-					split[0] = "nation";
+				else if (split[0].equalsIgnoreCase("kingdom"))
+					split[0] = "town";
 
 				if (split[1].equalsIgnoreCase("itemuse"))
 					split[1] = "item_use";
@@ -1057,7 +1057,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 			townBlock.save();
 			if (!townBlock.hasPlotObjectGroup()) {
 				TownyMessaging.sendMsg(player, Translatable.of("msg_set_perms"));
-				TownyMessaging.sendMessage(player, Colors.Green + Translatable.of("status_perm").forLocale(player) + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("n", "t") : perm.getColourString().replace("f", "r")));
+				TownyMessaging.sendMessage(player, Colors.Green + Translatable.of("status_perm").forLocale(player) + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("e", "k") : perm.getColourString().replace("f", "r")));
 				TownyMessaging.sendMessage(player, Colors.Green + Translatable.of("status_pvp").forLocale(player) + " " + ((perm.pvp) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + 
 												   Colors.Green + Translatable.of("explosions").forLocale(player) + " " + ((perm.explosion) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + 
 												   Colors.Green + Translatable.of("firespread").forLocale(player) + " " + ((perm.fire) ? Colors.Red + "ON" : Colors.LightGreen + "OFF") + 
@@ -1774,7 +1774,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 		if (townBlockOwner instanceof Town)
 			TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[resident/nation/ally/outsider]", "", ""));
 		if (townBlockOwner instanceof Resident)
-			TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[friend/town/ally/outsider]", "", ""));
+			TownyMessaging.sendMessage(player, ChatTools.formatCommand("Level", "[friend/kingdom/ally/outsider]", "", ""));
 		TownyMessaging.sendMessage(player, ChatTools.formatCommand("Type", "[build/destroy/switch/itemuse]", "", ""));
 		TownyMessaging.sendMessage(player, ChatTools.formatCommand("/plot group set", "perm", "[on/off]", "Toggle all permissions"));
 		TownyMessaging.sendMessage(player, ChatTools.formatCommand("/plot group set", "perm", "[level/type] [on/off]", ""));
@@ -1826,7 +1826,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 				Translator translator = Translator.locale(player);
 				TownyPermission perm = plotGroup.getPermissions();
 				TownyMessaging.sendMessage(player, translator.of("msg_set_perms"));
-				TownyMessaging.sendMessage(player, Colors.Green + translator.of("status_perm") + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("n", "t") : perm.getColourString().replace("f", "r")));
+				TownyMessaging.sendMessage(player, Colors.Green + translator.of("status_perm") + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("e", "k") : perm.getColourString().replace("f", "r")));
 				TownyMessaging.sendMessage(player, Colors.Green + translator.of("status_pvp") + " " + (perm.pvp ? translator.of("status_on") : translator.of("status_off")) + 
 													Colors.Green + translator.of("explosions") + " " + (perm.explosion ? translator.of("status_on") : translator.of("status_off")) + 
 													Colors.Green + translator.of("firespread") + " " + (perm.fire ? translator.of("status_on") : translator.of("status_off")) +  
@@ -2154,7 +2154,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 
 		if (args[0].equalsIgnoreCase("add")) {
 			if (townBlock.hasTrustedResident(resident))
-				throw new TownyException(Translatable.of("msg_already_trusted", resident.getName(), Translatable.of("townblock")));
+				throw new TownyException(Translatable.of("msg_already_trusted", resident.getName(), Translatable.of("kingdomblock")));
 
 			if (townBlock.getTownOrNull().hasOutlaw(resident))
 				throw new TownyException(Translatable.of("msg_err_you_cannot_add_trust_on_outlaw"));
@@ -2167,21 +2167,21 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 			townBlock.addTrustedResident(resident);
 			plugin.deleteCache(resident);
 
-			TownyMessaging.sendMsg(player, Translatable.of("msg_trusted_added", resident.getName(), Translatable.of("townblock")));
+			TownyMessaging.sendMsg(player, Translatable.of("msg_trusted_added", resident.getName(), Translatable.of("kingdomblock")));
 			if (BukkitTools.isOnline(resident.getName()) && !resident.getName().equals(player.getName()))
-				TownyMessaging.sendMsg(resident, Translatable.of("msg_trusted_added_2", player.getName(), Translatable.of("townblock"), townBlock.getWorldCoord().getCoord().toString()));
+				TownyMessaging.sendMsg(resident, Translatable.of("msg_trusted_added_2", player.getName(), Translatable.of("kingdomblock"), townBlock.getWorldCoord().getCoord().toString()));
 		} else if (args[0].equalsIgnoreCase("remove")) {
 			if (!townBlock.hasTrustedResident(resident))
-				throw new TownyException(Translatable.of("msg_not_trusted", resident.getName(), Translatable.of("townblock")));
+				throw new TownyException(Translatable.of("msg_not_trusted", resident.getName(), Translatable.of("kingdomblock")));
 
 			BukkitTools.ifCancelledThenThrow(new PlotTrustRemoveEvent(townBlock, resident, player));
 
 			townBlock.removeTrustedResident(resident);
 			plugin.deleteCache(resident);
 
-			TownyMessaging.sendMsg(player, Translatable.of("msg_trusted_removed", resident.getName(), Translatable.of("townblock")));
+			TownyMessaging.sendMsg(player, Translatable.of("msg_trusted_removed", resident.getName(), Translatable.of("kingdomblock")));
 			if (BukkitTools.isOnline(resident.getName()) && !resident.getName().equals(player.getName()))
-				TownyMessaging.sendMsg(resident, Translatable.of("msg_trusted_removed_2", player.getName(), Translatable.of("townblock"), townBlock.getWorldCoord().getCoord().toString()));
+				TownyMessaging.sendMsg(resident, Translatable.of("msg_trusted_removed_2", player.getName(), Translatable.of("kingdomblock"), townBlock.getWorldCoord().getCoord().toString()));
 		} else {
 			throw new TownyException(Translatable.of("msg_err_invalid_property", args[0]));
 		}
@@ -2312,7 +2312,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_PLOT_PERM_REMOVE.getNode());
 
 			if (!townBlock.getPermissionOverrides().containsKey(resident))
-				throw new TownyException(Translatable.of("msg_no_overrides_set", resident.getName(), Translatable.of("townblock")));
+				throw new TownyException(Translatable.of("msg_no_overrides_set", resident.getName(), Translatable.of("kingdomblock")));
 
 			townBlock.getPermissionOverrides().remove(resident);
 			townBlock.save();
@@ -2322,7 +2322,7 @@ public class PlotCommand extends BaseCommand implements CommandExecutor {
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_PLOT_PERM_ADD.getNode());
 
 			if (townBlock.getPermissionOverrides().containsKey(resident))
-				throw new TownyException(Translatable.of("msg_overrides_already_set", resident.getName(), Translatable.of("townblock")));
+				throw new TownyException(Translatable.of("msg_overrides_already_set", resident.getName(), Translatable.of("kingdomblock")));
 
 			townBlock.getPermissionOverrides().put(resident, new PermissionData(PermissionGUIUtil.getDefaultTypes(), player.getName()));
 			townBlock.save();

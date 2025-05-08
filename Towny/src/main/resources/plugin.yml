@@ -1,15 +1,15 @@
-name: Towny
+name: Kingdoms
 main: com.palmergames.bukkit.towny.Towny
 version: ${project.version}
 api-version: ${project.bukkitAPIVersion}
 folia-supported: true
-authors: [LlmDl, Warrior]
-contributors: [Articdive, creatorfromhell, ElgarL, FlagCourier, Goosius1, Shade, silverwolfg11]
+authors: [NobleSkye, Town -> LlmDl, Warrior]
+contributors: [NobleSkye, Articdive, creatorfromhell, ElgarL, FlagCourier, Goosius1, Shade, silverwolfg11]
 website: 'https://townyadvanced.github.io/'
-prefix: Towny
+prefix: Kingdoms
 description: >
-    Resident-Town-Nation hierarchy combined with a grid based
-    protection system, many features and an expansive API.
+    UwU such an amazing towny fork UwU
+    Custom Plugin Fork for Byte & Scroll Studio
 
 softdepend: [Vault, Reserve, TheNewChat, PlaceholderAPI, GroupManager, LuckPerms, CoreProtect]
 
@@ -21,10 +21,10 @@ softdepend: [Vault, Reserve, TheNewChat, PlaceholderAPI, GroupManager, LuckPerms
 
 commands:
     towny:
-        aliases: []
+        aliases: [kingdoms]
         description: Base Towny command, see /towny ?
     nation:
-        aliases: [n, nat]
+        aliases: [empire, e, n, nat]
         description: Towny's Nation command, see /nation ?
     plot:
         aliases: []
@@ -33,10 +33,10 @@ commands:
         aliases: [res, p, player]
         description: Towny's Resident command, see /res ?
     town:
-        aliases: [t]
+        aliases: [k, t]
         description: Towny's Town command, see /town ?
     townyadmin:
-        aliases: [ta]
+        aliases: [ka, ta,]
         description: Towny's TownyAdmin command, see /ta ?
     townyworld:
         aliases: [tw]

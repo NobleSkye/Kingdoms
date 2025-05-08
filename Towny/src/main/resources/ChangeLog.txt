@@ -10310,3 +10310,5 @@ v0.92.0.11:
     - Also prevents trust being given to outlaws, enemies in plots, towns and trusted town lists.
     - Clsoes #7818.
   - Prevent NPE thrown by jail plots which have a null jail, during townblock removal.
+0.101.1.20:
+   - uwu plugin now for kingdoms :3

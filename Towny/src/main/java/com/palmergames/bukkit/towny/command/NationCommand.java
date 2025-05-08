@@ -122,12 +122,12 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 		"invite",
 		"join",
 		"merge",
-		"townlist",
+		"kingdomlist",
 		"allylist",
 		"enemylist",
 		"ally",
 		"spawn",
-		"sanctiontown",
+		"sanctionkingdom",
 		"king",
 		"leader",
 		"bankhistory",
@@ -160,8 +160,8 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 		"online",
 		"open",
 		"public",
-		"townblocks",
-		"towns",
+		"kingdomblocks",
+		"kingdoms",
 		"upkeep"
 	);
 	
@@ -227,11 +227,11 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 				case "merge":
 				case "baltop":
 					if (args.length == 2)
-						return getTownyStartingWith(args[1], "n");
+						return getTownyStartingWith(args[1], "e");
 					break;
 				case "spawn":
 					if (args.length == 2) {
-						List<String> nationOrIgnore = getTownyStartingWith(args[1], "n");
+						List<String> nationOrIgnore = getTownyStartingWith(args[1], "e");
 						nationOrIgnore.add("-ignore");
 						return NameUtil.filterByStart(nationOrIgnore, args[1]);
 					}
@@ -239,7 +239,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 						return Collections.singletonList("-ignore");
 					}
 					break;
-				case "sanctiontown":
+				case "sanctionkingdom":
 					if (nation == null)
 						break;
 					if (args.length == 2) 
@@ -251,10 +251,10 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 							.map(Town::getName)
 							.collect(Collectors.toList()), args[2]);
 					if (args.length == 3 && args[1].equalsIgnoreCase("list"))
-						return getTownyStartingWith(args[2], "n");
+						return getTownyStartingWith(args[2], "e");
 					break;
 				case "add":
-					return getTownyStartingWith(args[args.length - 1], "t");
+					return getTownyStartingWith(args[args.length - 1], "k");
 				case "kick":
 					if (res.hasNation())
 						return NameUtil.filterByStart(NameUtil.getNames(res.getNationOrNull().getTowns()), args[args.length - 1]);
@@ -281,7 +281,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 										.collect(Collectors.toList());
 								} else {
 									// Otherwise return possible nations to send invites to
-									return getTownyStartingWith(args[args.length - 1], "n");
+									return getTownyStartingWith(args[args.length - 1], "e");
 								}
 							case "remove":
 								return NameUtil.filterByStart(NameUtil.getNames(nation.getAllies()), args[args.length - 1]);
@@ -331,7 +331,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 					} else if (args.length >= 3){
 						switch (args[1].toLowerCase(Locale.ROOT)) {
 							case "add":
-								return getTownyStartingWith(args[2], "n");
+								return getTownyStartingWith(args[2], "e");
 							case "remove":
 								return NameUtil.filterByStart(NameUtil.getNames(nation.getEnemies()), args[2]);
 							default:
@@ -359,13 +359,13 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 						if (nationNames.size() > 0) {
 							return nationNames;
 						} else {
-							return getTownyStartingWith(args[0], "n");
+							return getTownyStartingWith(args[0], "e");
 						}
 					} else if (args.length > 1 && TownyCommandAddonAPI.hasCommand(CommandType.NATION, args[0]))
 						return NameUtil.filterByStart(TownyCommandAddonAPI.getAddonCommand(CommandType.NATION, args[0]).getTabCompletion(sender, args), args[args.length-1]);
 			}
 		} else if (args.length == 1) {
-			return filterByStartOrGetTownyStartingWith(nationConsoleTabCompletes, args[0], "n");
+			return filterByStartOrGetTownyStartingWith(nationConsoleTabCompletes, args[0], "e");
 		}
 
 		return Collections.emptyList();
@@ -480,7 +480,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 		case "list":
 			listNations(player, split);
 			break;
-		case "townlist":
+		case "kingdomlist":
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_NATION_TOWNLIST.getNode());
 			nationTownList(player, getPlayerNationOrNationFromArg(player, StringMgmt.remFirstArg(split)));
 			break;
@@ -547,7 +547,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_NATION_KICK.getNode());
 			nationKick(player, StringMgmt.remFirstArg(split));
 			break;
-		case "sanctiontown":
+		case "sanctionkingdom":
 			nationSanctionTown(player, null, StringMgmt.remFirstArg(split));
 			break;
 		case "set":
@@ -620,7 +620,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private void nationSay(Player player, String[] split) throws TownyException {
 		if (split.length == 0)
-			throw new TownyException("ex: /n say [message here]");
+			throw new TownyException("ex: /e say [message here]");
 		getNationFromPlayerOrThrow(player).playerBroadCastMessageToNation(player, StringMgmt.join(split));
 	}
 
@@ -669,13 +669,13 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 				.replace("%a", Integer.toString(nation.getSentInvites().size()))
 				.replace("%m", Integer.toString(InviteHandler.getSentInvitesMaxAmount(nation)));
 
-		if (newSplit.length == 0) { // (/nation invite)
+		if (newSplit.length == 0) { // (/empire invite)
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_NATION_INVITE_SEE_HOME.getNode());
 			HelpMenu.NATION_INVITE.send(player);
 			TownyMessaging.sendMessage(player, sent);
 			return;
 		}
-		if (newSplit.length >= 1) { // /nation invite [something]
+		if (newSplit.length >= 1) { // /empire invite [something]
 			if (newSplit[0].equalsIgnoreCase("help") || newSplit[0].equalsIgnoreCase("?")) {
 				HelpMenu.NATION_INVITE.send(player);
 				return;
@@ -784,7 +784,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	/**
-	 * Send a list of all nations in the universe to player Command: /nation
+	 * Send a list of all nations in the universe to player Command: /empire
 	 * list
 	 *
 	 * @param sender - Sender (player or console.)
@@ -902,7 +902,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	/**
-	 * Ties together the player-run /new nation and the admin-run /ta nation new
+	 * Ties together the player-run /new nation and the admin-run /ka nation new
 	 * NAME CAPITAL code. Vets the name supplied, throws the cancellable event and
 	 * then charges (if required) before creating a new nation.
 	 *
@@ -1062,7 +1062,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	public void nationDelete(Player player, String[] split) throws TownyException {
-		// Player is using "/n delete"
+		// Player is using "/e delete"
 		if (split.length == 0) {
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_NATION_DELETE.getNode());
 
@@ -1087,7 +1087,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			return;
 		}
 
-		// Admin is using "/n delete NATIONNAME"
+		// Admin is using "/e delete NATIONNAME"
 		checkPermOrThrowWithMessage(player, PermissionNodes.TOWNY_COMMAND_TOWNYADMIN_NATION_DELETE.getNode(), Translatable.of("msg_err_admin_only_delete_nation"));
 
 		Nation nation = getNationOrThrow(split[0]);
@@ -1106,7 +1106,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private void parseNationJoin(Player player, String[] args) throws TownyException {
 		if (args.length < 1)
-			throw new TownyException(Translatable.of("msg_usage", "/nation join [nation]"));
+			throw new TownyException(Translatable.of("msg_usage", "/empire join [nation]"));
 
 		Town town = getTownFromPlayerOrThrow(player);
 		Nation nation = getNationOrThrow(args[0]);
@@ -1125,14 +1125,14 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	private void testNationAddTownOrThrow(Town town, Nation nation) throws TownyException {
 		// Check if town is currently in a nation.
 		if (nation.hasTown(town) || town.hasNation())
-			throw new TownyException(Translatable.of("msg_err_already_in_town", town.getName(), town.getNationOrNull().getName()));
+			throw new TownyException(Translatable.of("msg_err_already_in_kingdom", town.getName(), town.getNationOrNull().getName()));
 
 		if (!town.hasEnoughResidentsToJoinANation())
 			throw new TownyException(Translatable.of("msg_err_not_enough_residents_join_nation", town.getName()));
 
 		// Check if the town is sanctioned and not allowed to join.
 		if (nation.hasSanctionedTown(town))
-			throw new TownyException(Translatable.of("msg_err_cannot_join_nation_sanctioned_town", nation.getName()));
+			throw new TownyException(Translatable.of("msg_err_cannot_join_nation_sanctioned_kingdom", nation.getName()));
 
 		if (nation.hasReachedMaxTowns())
 			throw new TownyException(Translatable.of("msg_err_nation_over_town_limit", TownySettings.getMaxTownsPerNation()));
@@ -1159,7 +1159,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	public void nationAdd(Player player, String[] names) throws TownyException {
 
 		if (names.length < 1)
-			throw new TownyException("Eg: /nation add [names]");
+			throw new TownyException("Eg: /empire add [names]");
 
 		Nation nation = getNationFromPlayerOrThrow(player);
 
@@ -1250,8 +1250,8 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 		if (nation.hasSanctionedTown(town)) {
 			// Nation has sanctioned this town, since inviting them.
-			TownyMessaging.sendPrefixedNationMessage(nation, Translatable.of("msg_err_cannot_add_sanctioned_town", town.getName()));
-			TownyMessaging.sendPrefixedTownMessage(town, Translatable.of("msg_err_cannot_join_nation_sanctioned_town", nation.getName()));
+			TownyMessaging.sendPrefixedNationMessage(nation, Translatable.of("msg_err_cannot_add_sanctioned_kingdom", town.getName()));
+			TownyMessaging.sendPrefixedTownMessage(town, Translatable.of("msg_err_cannot_join_nation_sanctioned_kingdom", nation.getName()));
 			return;
 		}
 
@@ -1317,7 +1317,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	public void nationKick(Player player, String[] names) throws TownyException {
 
 		if (names.length < 1) {
-			TownyMessaging.sendErrorMsg(player, "Eg: /nation kick [names]");
+			TownyMessaging.sendErrorMsg(player, "Eg: /empire kick [names]");
 			return;
 		}
 
@@ -1400,7 +1400,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSanctionTownAdd(CommandSender sender, Nation nation, Town town) throws TownyException {
 		if (nation.hasTown(town))
-			throw new TownyException(Translatable.of("msg_err_nation_cannot_sanction_own_town"));
+			throw new TownyException(Translatable.of("msg_err_nation_cannot_sanction_own_kingdom"));
 
 		if (nation.hasSanctionedTown(town))
 			throw new TownyException(Translatable.of("msg_err_nation_town_already_sanctioned"));
@@ -1463,7 +1463,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private void nationAllyAdd(Player player, Resident resident, Nation nation, String[] names) throws TownyException {
 		if (names.length == 0)
-			throw new TownyException(Translatable.of("msg_usage", "/n ally add [names]"));
+			throw new TownyException(Translatable.of("msg_usage", "/e ally add [names]"));
 		
 		TownyUniverse townyUniverse = TownyUniverse.getInstance();
 		ArrayList<Nation> list = new ArrayList<>();
@@ -1512,7 +1512,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private void nationAllyRemove(Player player, Resident resident, Nation nation, String[] names) throws TownyException {
 		if (names.length == 0)
-			throw new TownyException(Translatable.of("msg_usage", "/n ally add [names]"));
+			throw new TownyException(Translatable.of("msg_usage", "/e ally add [names]"));
 		
 		ArrayList<Nation> list = new ArrayList<>();
 		Nation ally;
@@ -1556,7 +1556,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			TownyMessaging.sendErrorMsg(player, Translatable.of("msg_err_nation_no_requests"));
 			return;
 		}
-		if (split.length >= 2) { // /nation ally accept args[1]
+		if (split.length >= 2) { // /empire ally accept args[1]
 			sendernation = TownyUniverse.getInstance().getNation(split[1]);
 
 			if (sendernation == null) {
@@ -1792,7 +1792,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 		TownyUniverse townyUniverse = TownyUniverse.getInstance();
 
 		if (split.length < 2) {
-			TownyMessaging.sendErrorMsg(player, "Eg: /nation enemy [add/remove] [name]");
+			TownyMessaging.sendErrorMsg(player, "Eg: /empire enemy [add/remove] [name]");
 			return;
 		}
 
@@ -2002,7 +2002,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetMapColor(CommandSender sender, Nation nation, String[] split, boolean admin) throws TownyException {
 		if (split.length < 2)
-			throw new TownyException("Eg: /nation set mapcolor brown.");
+			throw new TownyException("Eg: /empire set mapcolor brown.");
 
 		String color = StringMgmt.join(StringMgmt.remFirstArg(split), " ").toLowerCase(Locale.ROOT);
 
@@ -2030,7 +2030,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetBoard(CommandSender sender, Nation nation, String[] split) {
 		if (split.length < 2) {
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set board " + Translatable.of("town_help_9").forLocale(sender));
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set board " + Translatable.of("town_help_9").forLocale(sender));
 			return;
 		} else {
 			String line = StringMgmt.join(StringMgmt.remFirstArg(split), " ");
@@ -2054,7 +2054,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	private static void nationSetSurname(CommandSender sender, Nation nation, Resident resident, String[] split, boolean admin) throws TownyException {
 		// Give the resident a title
 		if (split.length < 2)
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set surname bilbo the dwarf ");
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set surname bilbo the dwarf ");
 		else
 			resident = getResidentOrThrow(split[1]);
 
@@ -2088,7 +2088,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	private static void nationSetTitle(CommandSender sender, Nation nation, Resident resident, String[] split, boolean admin) throws TownyException {
 		// Give the resident a title
 		if (split.length < 2)
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set title bilbo Jester ");
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set title bilbo Jester ");
 		else
 			resident = getResidentOrThrow(split[1]);
 		
@@ -2121,7 +2121,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 		String name = sender instanceof Player ? sender.getName() : "Console"; 
 		
 		if (split.length < 2)
-			throw new TownyException("Eg: /nation set tag PLT");
+			throw new TownyException("Eg: /empire set tag PLT");
 		else if (split[1].equalsIgnoreCase("clear")) {
 			nation.setTag(" ");
 			TownyMessaging.sendPrefixedNationMessage(nation, Translatable.of("msg_reset_nation_tag", name));
@@ -2136,10 +2136,10 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetName(CommandSender sender, Nation nation, String[] split, boolean admin) throws TownyException {
 		if (admin || !(sender instanceof Player))
-			throw new TownyException("Use /ta nation [nation] rename");
+			throw new TownyException("Use /ka nation [nation] rename");
 
 		if (split.length < 2)
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set name Plutoria");				
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set name Plutoria");				
 		else {
 			
 			String name = String.join("_", StringMgmt.remFirstArg(split));
@@ -2170,7 +2170,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetSpawnCost(CommandSender sender, Nation nation, String[] split, boolean admin) throws TownyException {
 		if (split.length < 2)
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set spawncost 70");
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set spawncost 70");
 		else {
 			double amount = MoneyUtil.getMoneyAboveZeroOrThrow(split[1]);
 			if (TownySettings.getSpawnTravelCost() < amount)
@@ -2186,7 +2186,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetTaxes(CommandSender sender, Nation nation, String[] split, boolean admin) throws TownyException {
 		if (split.length < 2)
-			throw new TownyException("Eg: /nation set taxes 70");
+			throw new TownyException("Eg: /empire set taxes 70");
 		Double amount = MathUtil.getDoubleOrThrow(split[1]);
 		if (amount < 0 && !TownySettings.isNegativeNationTaxAllowed())
 			throw new TownyException(Translatable.of("msg_err_negative_money"));
@@ -2205,7 +2205,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			throw new TownyException(Translatable.of("msg_max_tax_amount_only_for_percent"));
 
 		if (split.length < 2) 
-			throw new TownyException("Eg. /nation set taxpercentcap 10000");
+			throw new TownyException("Eg. /empire set taxpercentcap 10000");
 
 		nation.setMaxPercentTaxAmount(MathUtil.getPositiveIntOrThrow(split[1]));
 
@@ -2214,7 +2214,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	public static void nationSetConqueredTax(CommandSender sender, String[] split, Nation nation) throws TownyException {
 		if (split.length < 2) 
-			throw new TownyException("Eg. /nation set conqueredtax 10000");
+			throw new TownyException("Eg. /empire set conqueredtax 10000");
 
 		double input = MathUtil.getPositiveIntOrThrow(split[1]);
 		double max = TownySettings.getMaxNationConqueredTaxAmount();
@@ -2228,7 +2228,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 
 	private static void nationSetCapital(CommandSender sender, Nation nation, String[] split, boolean admin) throws TownyException {
 		if (split.length < 2) {
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set capital {town name}");
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set capital {town name}");
 			return;
 		}
 
@@ -2321,7 +2321,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 	private static void nationSetKing(CommandSender sender, Nation nation, String[] split, boolean admin) {
 
 		if (split.length < 2)
-			TownyMessaging.sendErrorMsg(sender, "Eg: /nation set leader Dumbo");
+			TownyMessaging.sendErrorMsg(sender, "Eg: /empire set leader Dumbo");
 		else
 			try {
 				final Resident newKing = getResidentOrThrow(split[1]);
@@ -2564,7 +2564,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			Nation nation = getNationFromResidentOrThrow(resident);
 
 			if (args.length < 1 || args.length > 2)
-				throw new TownyException(Translatable.of("msg_must_specify_amnt", "/nation" + (withdraw ? " withdraw" : " deposit")));
+				throw new TownyException(Translatable.of("msg_must_specify_amnt", "/empire" + (withdraw ? " withdraw" : " deposit")));
 
 			int amount;
 			if ("all".equalsIgnoreCase(args[0].trim()))
@@ -2585,7 +2585,7 @@ public class NationCommand extends BaseCommand implements CommandExecutor {
 			}
 			
 			if (withdraw)
-				throw new TownyException(Translatable.of("msg_must_specify_amnt", "/nation withdraw"));
+				throw new TownyException(Translatable.of("msg_must_specify_amnt", "/empire withdraw"));
 
 			// Check depositing into another town
 			checkPermOrThrow(player, PermissionNodes.TOWNY_COMMAND_NATION_DEPOSIT_OTHER.getNode());

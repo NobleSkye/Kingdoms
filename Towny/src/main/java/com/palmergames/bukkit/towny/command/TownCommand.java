@@ -241,14 +241,14 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		"open",
 		"public",
 		"ruined",
-		"townblocks",
+		"kingdomblocks",
 		"upkeep"
 	);
 	static final List<String> townToggleTabCompletes = Arrays.asList(
 		"explosion",
 		"fire",
 		"mobs",
-		"nationzone",
+		"empirezone",
 		"neutral",
 		"peaceful",
 		"public",
@@ -305,7 +305,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		
 		if (!(sender instanceof Player player)) {
 			if (args.length == 1)
-				return filterByStartOrGetTownyStartingWith(townConsoleTabCompletes, args[0], "t");
+				return filterByStartOrGetTownyStartingWith(townConsoleTabCompletes, args[0], "k");
 			else 
 				return Collections.emptyList();
 		}
@@ -326,15 +326,15 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		case "baltop":
 		case "ranklist":
 			if (args.length == 2)
-				return getTownyStartingWith(args[1], "t");
+				return getTownyStartingWith(args[1], "k");
 			break;
 		case "deposit":
 			if (args.length == 3)
-				return getTownyStartingWith(args[2], "t");
+				return getTownyStartingWith(args[2], "k");
 			break;
 		case "spawn":
 			if (args.length == 2) {
-				List<String> townOrIgnore = getTownyStartingWith(args[1], "t");
+				List<String> townOrIgnore = getTownyStartingWith(args[1], "k");
 				townOrIgnore.add("-ignore");
 				return NameUtil.filterByStart(townOrIgnore, args[1]);
 			}
@@ -412,7 +412,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			if (args.length == 2)
 				return Arrays.asList("plot");
 			if (args.length == 3)
-				return getTownyStartingWith(args[2], "t");
+				return getTownyStartingWith(args[2], "k");
 			break;
 		case "claim":
 			switch (args.length) {
@@ -479,7 +479,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 				return NameUtil.filterByStart(Arrays.asList("add", "remove", "list"), args[1]);
 			case 3:
 				if (args[1].equalsIgnoreCase("add")) {
-					List<String> townsList = getTownyStartingWith(args[2], "t");
+					List<String> townsList = getTownyStartingWith(args[2], "k");
 					townsList.removeAll(getTrustedTownsFromResident(player));
 					return townsList;
 				}
@@ -491,14 +491,14 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			}
 		case "buytown":
 			if (args.length == 2) {
-				List<String> townsList = getTownyStartingWith(args[1], "t");
+				List<String> townsList = getTownyStartingWith(args[1], "k");
 				townsList.removeIf(n -> !TownyAPI.getInstance().getTown(n).isForSale());
 				return townsList;
 			}
 			break;
 		default:
 			if (args.length == 1)
-				return filterByStartOrGetTownyStartingWith(TownyCommandAddonAPI.getTabCompletes(CommandType.TOWN, townTabCompletes), args[0], "t");
+				return filterByStartOrGetTownyStartingWith(TownyCommandAddonAPI.getTabCompletes(CommandType.TOWN, townTabCompletes), args[0], "k");
 			else if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN, args[0]))
 				return NameUtil.filterByStart(TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN, args[0]).getTabCompletion(sender, args), args[args.length-1]);
 		}
@@ -723,7 +723,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 
 	private boolean tryTownAddonCommand(CommandSender sender, String[] split) {
 		if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN, split[0])) {
-			TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN, split[0]).execute(sender, "town", split);
+			TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN, split[0]).execute(sender, "kingdom", split);
 			return true;
 		}
 		return false;
@@ -790,10 +790,10 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		catchRuinedTown(player);
 		Resident resident = getResidentOrThrow(player);
 
-		String received = Translatable.of("town_received_invites").forLocale(player)
+		String received = Translatable.of("kingdom_received_invites").forLocale(player)
 				.replace("%a", Integer.toString(resident.getTown().getReceivedInvites().size()))
 				.replace("%m", Integer.toString(InviteHandler.getReceivedInvitesMaxAmount(resident.getTown())));
-		String sent = Translatable.of("town_sent_invites").forLocale(player)
+		String sent = Translatable.of("kingdom_sent_invites").forLocale(player)
 				.replace("%a", Integer.toString(resident.getTown().getSentInvites().size()))
 				.replace("%m", Integer.toString(InviteHandler.getSentInvitesMaxAmount(resident.getTown())));
 
@@ -1155,7 +1155,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		for (int i = 1; i < split.length; i++) {
 			if (split[i].equalsIgnoreCase("by")) { // Is a case of someone using /n list by {comparator}
 				if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN_LIST_BY, split[i+1])) {
-					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_LIST_BY, split[i+1]).execute(sender, "town", split);
+					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_LIST_BY, split[i+1]).execute(sender, "kingdom", split);
 					return;
 				}
 
@@ -1265,10 +1265,10 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		case "taxpercent" -> townToggleTaxPercent(sender, admin, town, choice);
 		case "open" -> townToggleOpen(sender, admin, town, choice);
 		case "neutral", "peaceful" -> townToggleNeutral(sender, admin, town, permSource, choice);
-		case "nationzone" -> townToggleNationZone(sender, admin, town, choice);
+		case "empirezone" -> townToggleNationZone(sender, admin, town, choice);
 		default -> {
 			if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN_TOGGLE, split[0])) {
-				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_TOGGLE, split[0]).execute(sender, "town", split);
+				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_TOGGLE, split[0]).execute(sender, "kingdom", split);
 				return;
 			}
 			/*
@@ -1807,7 +1807,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	private void rankAdd(Player player, Resident target, String rank) throws TownyException {
-		Translatable townWord = Translatable.of("town_sing");
+		Translatable townWord = Translatable.of("kingdom_sing");
 		if (target.hasTownRank(rank)) 
 			throw new TownyException(Translatable.of("msg_resident_already_has_rank", target.getName(), townWord));
 
@@ -1832,7 +1832,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	private void rankRemove(Player player, Resident target, String rank) throws TownyException {
-		Translatable townWord = Translatable.of("town_sing");
+		Translatable townWord = Translatable.of("kingdom_sing");
 		if (!target.hasTownRank(rank))
 			throw new TownyException(Translatable.of("msg_resident_doesnt_have_rank", target.getName(), townWord));
 
@@ -1900,7 +1900,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		case "mapcolor" -> townSetMapColor(sender, subArgs, town);
 		default -> {
 			if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN_SET, arg)) {
-				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_SET, arg).execute(sender, "town", split);
+				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_SET, arg).execute(sender, "kingdom", split);
 				return;
 			}
 			HelpMenu.TOWN_SET.send(sender);
@@ -1910,7 +1910,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 	public static void townSetBoard(CommandSender sender, String board, Town town) throws TownyException {
 		checkPermOrThrow(sender, PermissionNodes.TOWNY_COMMAND_TOWN_SET_BOARD.getNode());
 		if (board.isEmpty())
-			throw new TownyException("Eg: /town set board " + Translatable.of("town_help_9").forLocale(sender));
+			throw new TownyException("Eg: /town set board " + Translatable.of("kingdom_help_9").forLocale(sender));
 
 		if ("reset".equalsIgnoreCase(board)) {
 			board = TownySettings.getTownDefaultBoard();
@@ -2165,8 +2165,8 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		town.setSpawnCost(amount);
 		town.save();
 		String price = prettyMoney(amount);
-		if (admin) TownyMessaging.sendMsg(sender, Translatable.of("msg_spawn_cost_set_to", sender.getName(), Translatable.of("town_sing"), price));
-		TownyMessaging.sendPrefixedTownMessage(town, Translatable.of("msg_spawn_cost_set_to", sender.getName(), Translatable.of("town_sing"), price));
+		if (admin) TownyMessaging.sendMsg(sender, Translatable.of("msg_spawn_cost_set_to", sender.getName(), Translatable.of("kingdom_sing"), price));
+		TownyMessaging.sendPrefixedTownMessage(town, Translatable.of("msg_spawn_cost_set_to", sender.getName(), Translatable.of("kingdom_sing"), price));
 	}
 
 	public static void townSetName(CommandSender sender, String[] split, Town town) throws TownyException {
@@ -2374,7 +2374,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			for (Resident res : residents)
 				sb.append(Translatable.of("msg_baltop_book_format", ++i, res.getName(), prettyMoney(res.getAccount().getCachedBalance())).forLocale(player) + "\n");
 
-			ItemStack book = BookFactory.makeBook("Town Baltop", town.getName(), sb.toString());
+			ItemStack book = BookFactory.makeBook("kingdom Baltop", town.getName(), sb.toString());
 			plugin.getScheduler().run(player, () -> player.openBook(book));
 		});
 	}
@@ -2398,7 +2398,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			case "bonus" -> townBuyBonus(town, split, sender);
 			default -> {
 				if (TownyCommandAddonAPI.hasCommand(CommandType.TOWN_BUY, split[0])) {
-					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_BUY, split[0]).execute(sender, "town", split);
+					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWN_BUY, split[0]).execute(sender, "kingdom", split);
 					return;
 				}
 				HelpMenu.TOWN_BUY.send(sender);
@@ -2468,7 +2468,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			TownyMessaging.sendMsg(sender, Translatable.of("msg_buy", n, Translatable.of("bonus_townblocks"), prettyMoney(cost)));
 			town.save();
 		})
-			.setCost(new ConfirmationTransaction(() -> cost, town, String.format("Town Buy Bonus (%d)", n),
+			.setCost(new ConfirmationTransaction(() -> cost, town, String.format("kingdom Buy Bonus (%d)", n),
 					Translatable.of("msg_no_funds_to_buy", n, Translatable.of("bonus_townblocks"), prettyMoney(cost))))
 			.setTitle(Translatable.of("msg_confirm_purchase", prettyMoney(cost)))
 			.sendTo(sender); 
@@ -2694,7 +2694,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		}
 
 		double renameCost = TownySettings.getTownRenameCost();
-		if (TownyEconomyHandler.isActive() && renameCost > 0 && !town.getAccount().withdraw(renameCost, String.format("Town renamed to: %s", newName))) {
+		if (TownyEconomyHandler.isActive() && renameCost > 0 && !town.getAccount().withdraw(renameCost, String.format("kingdom renamed to: %s", newName))) {
 			TownyMessaging.sendErrorMsg(sender, Translatable.of("msg_err_no_money", prettyMoney(renameCost)));
 			return;
 		}
@@ -2815,7 +2815,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		checkPermOrThrowWithMessage(player, PermissionNodes.TOWNY_COMMAND_TOWNYADMIN_TOWN_DELETE.getNode(), Translatable.of("msg_err_admin_only_delete_town"));
 
 		Confirmation.runOnAccept(() -> {
-			TownyMessaging.sendMsg(player, Translatable.of("town_deleted_by_admin", town.getName()));
+			TownyMessaging.sendMsg(player, Translatable.of("kingdom_deleted_by_admin", town.getName()));
 			townyUniverse.getDataSource().removeTown(town, DeleteTownEvent.Cause.ADMIN_COMMAND, player);
 		}).sendTo(player);
 	}
@@ -3118,7 +3118,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			InviteHandler.getActiveInvitesFor(town, resident).forEach(invite -> {
 				try {
 					InviteHandler.declineInvite(invite, true);
-					TownyMessaging.sendMsg(sender, Translatable.of("town_revoke_invite_successful", resident.getName()));
+					TownyMessaging.sendMsg(sender, Translatable.of("kingdom_revoke_invite_successful", resident.getName()));
 				} catch (InvalidObjectException e) {
 					plugin.getLogger().log(Level.WARNING, "An exception occurred while revoking invite for resident " + resident.getName() + " from town " + town.getName(), e);
 				}
@@ -3151,8 +3151,8 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		// permissions to be set correctly.
 		if (split[0].equalsIgnoreCase("friend"))
 			split[0] = "resident";
-		else if (split[0].equalsIgnoreCase("town"))
-			split[0] = "nation";
+		else if (split[0].equalsIgnoreCase("kingdom"))
+			split[0] = "empire";
 		if (split[0].equalsIgnoreCase("itemuse"))
 			split[0] = "item_use";
 		if (split.length > 1 && split[1].equalsIgnoreCase("itemuse"))
@@ -3248,7 +3248,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 
 		Translator translator = Translator.locale(sender);
 		TownyMessaging.sendMsg(sender, translator.of("msg_set_perms"));
-		TownyMessaging.sendMessage(sender, (Colors.Green + translator.of("status_perm") + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("n", "t") : perm.getColourString().replace("f", "r"))));
+		TownyMessaging.sendMessage(sender, (Colors.Green + translator.of("status_perm") + " " + ((townBlockOwner instanceof Resident) ? perm.getColourString().replace("e", "k") : perm.getColourString().replace("f", "r"))));
 		String on = translator.of("status_on");
 		String off = translator.of("status_off");
 		TownyMessaging.sendMessage(sender, Colors.Green + translator.of("status_pvp") + " " + (perm.pvp ? on : off) + " " +
@@ -3264,9 +3264,9 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 	private static void displaySetPlotPermissionsHelp(CommandSender sender, TownBlockOwner townBlockOwner) {
 		TownyMessaging.sendMessage(sender, ChatTools.formatTitle("/... set perm"));
 		if (townBlockOwner instanceof Town)
-			TownyMessaging.sendMessage(sender, ChatTools.formatCommand("Level", "[resident/nation/ally/outsider]", "", ""));
+			TownyMessaging.sendMessage(sender, ChatTools.formatCommand("Level", "[resident/empire//ally/outsider]", "", ""));
 		if (townBlockOwner instanceof Resident)
-			TownyMessaging.sendMessage(sender, ChatTools.formatCommand("Level", "[friend/town/ally/outsider]", "", ""));
+			TownyMessaging.sendMessage(sender, ChatTools.formatCommand("Level", "[friend/kingdom/ally/outsider]", "", ""));
 		TownyMessaging.sendMessage(sender, ChatTools.formatCommand("Type", "[build/destroy/switch/itemuse]", "", ""));
 		TownyMessaging.sendMessage(sender, ChatTools.formatCommand("", "set perm", "[on/off]", "Toggle all permissions"));
 		TownyMessaging.sendMessage(sender, ChatTools.formatCommand("", "set perm", "[level/type] [on/off]", ""));
@@ -3298,7 +3298,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 			}
 		}
 		if (townBlockOwner instanceof Town)
-			TownyMessaging.sendMsg(sender, Translatable.of("msg_set_perms_reset", "Town owned"));
+			TownyMessaging.sendMsg(sender, Translatable.of("msg_set_perms_reset", "kingdom owned"));
 		else
 			TownyMessaging.sendMsg(sender, Translatable.of("msg_set_perms_reset", "your"));
 
@@ -3475,7 +3475,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		/*
 		 * Filter out any unallowed claims.
 		 */
-		TownyMessaging.sendDebugMsg("townClaim: Pre-Filter Selection ["+selection.size()+"] " + Arrays.toString(selection.toArray(new WorldCoord[0])));
+		TownyMessaging.sendDebugMsg("kingdomClaim: Pre-Filter Selection ["+selection.size()+"] " + Arrays.toString(selection.toArray(new WorldCoord[0])));
 
 		// Filter out any TownBlocks which aren't Wilderness. 
 		selection = AreaSelectionUtil.filterOutTownOwnedBlocks(selection);
@@ -3497,9 +3497,9 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 		// Filter out townblocks too close to other Towns' normal townblocks.
 		selection = AreaSelectionUtil.filterInvalidProximityTownBlocks(selection, town);
 		if (selection.isEmpty())
-			throw new TownyException(Translatable.of("msg_too_close2", Translatable.of("townblock")));
+			throw new TownyException(Translatable.of("msg_too_close2", Translatable.of("kingdomblock")));
 
-		TownyMessaging.sendDebugMsg("townClaim: Post-Filter Selection [" + selection.size() + "] " + Arrays.toString(selection.toArray(new WorldCoord[0])));
+		TownyMessaging.sendDebugMsg("kingdomClaim: Post-Filter Selection [" + selection.size() + "] " + Arrays.toString(selection.toArray(new WorldCoord[0])));
 		return selection;
 	}
 
@@ -3549,7 +3549,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 
 			// Charge the town for the claim.
 			TownyEconomyHandler.economyExecutor().execute(() ->
-				town.getAccount().withdraw(blockCost, String.format("Town Claim (%d) by %s", selectionSize, player.getName())));
+				town.getAccount().withdraw(blockCost, String.format("kingdom Claim (%d) by %s", selectionSize, player.getName())));
 		}
 	}
 
@@ -4356,7 +4356,7 @@ public class TownCommand extends BaseCommand implements CommandExecutor {
 					return;
 				}
 				
-				if (!resident.getAccount().withdraw(town.getForSalePrice(), "Town purchase cost.")) {
+				if (!resident.getAccount().withdraw(town.getForSalePrice(), "kingdom purchase cost.")) {
 					TownyMessaging.sendErrorMsg(sender, Translatable.of("msg_err_you_need_x_to_pay", town.getForSalePrice()));
 					return;
 				}

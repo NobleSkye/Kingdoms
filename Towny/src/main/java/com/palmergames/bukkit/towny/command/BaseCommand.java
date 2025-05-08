@@ -38,8 +38,8 @@ public class BaseCommand implements TabCompleter{
 		"off",
 		"resident",
 		"friend",
-		"town",
-		"nation",
+		"kingdom",
+		"empire",
 		"ally",
 		"outsider",
 		"build",
@@ -53,9 +53,9 @@ public class BaseCommand implements TabCompleter{
 		"resident",
 		"ally",
 		"outsider",
-		"nation",
+		"empire",
 		"friend",
-		"town"		
+		"kingdom"		
 	);
 
 	private static final List<String> setTypeCompletes = Arrays.asList(

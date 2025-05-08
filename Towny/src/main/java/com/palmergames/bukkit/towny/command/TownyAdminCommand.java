@@ -114,7 +114,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 	private static final List<String> adminTabCompletes = Arrays.asList(
 		"plot",
 		"resident",
-		"town",
+		"kingdom",
 		"nation",
 		"reset",
 		"toggle",
@@ -131,7 +131,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		"mysqldump",
 		"tpplot",
 		"database",
-		"townyperms",
+		"kingdomperms",
 		"install",
 		"eco"
 	);
@@ -205,8 +205,8 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		"npc",
 		"debug",
 		"devmode",
-		"townwithdraw",
-		"nationwithdraw"
+		"kingdomwithdraw",
+		"empirewithdraw"
 	);
 	
 	private static final List<String> adminPlotTabCompletes = Arrays.asList(
@@ -250,7 +250,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		"title",
 		"founder",
 		"surname",
-		"nationzoneoverride",
+		"empirezoneoverride",
 		"plot"
 	);
 	
@@ -263,8 +263,8 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 	private static final List<String> adminTownyPermsCompletes = Arrays.asList(
 		"listgroups",
 		"group",
-		"townrank",
-		"nationrank"
+		"kingdomrank",
+		"empirerank"
 	);
 	
 	private static final List<String> adminReloadTabCompletes = Arrays.asList(
@@ -275,7 +275,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		"permissions",
 		"language",
 		"lang",
-		"townyperms",
+		"kingdomperms",
 		"all"
 	);
 	
@@ -287,10 +287,10 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 	);
 
 	private static final List<String> adminEcoInfoTabCompletes = Arrays.asList(
-			"nation",
+			"empire",
 			"resident",
 			"serveraccount",
-			"town"
+			"kingdom"
 		);
 	
 	public TownyAdminCommand(Towny towny) {
@@ -318,7 +318,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 					return NameUtil.filterByStart(TownyCommandAddonAPI.getTabCompletes(CommandType.TOWNYADMIN_RELOAD, adminReloadTabCompletes), args[1]);
 			case "purge":
 				if (args.length == 3)
-					return filterByStartOrGetTownyStartingWith(Collections.singletonList("townless"), args[2], "+t");
+					return filterByStartOrGetTownyStartingWith(Collections.singletonList("kingdomless"), args[2], "+t");
 				break;
 			case "set":
 				if (args.length > 1) {
@@ -326,7 +326,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 						case "mayor":
 							switch (args.length) {
 								case 3:
-									return getTownyStartingWith(args[2], "t");
+									return getTownyStartingWith(args[2], "k");
 								case 4:
 									return filterByStartOrGetTownyStartingWith(Collections.singletonList("npc"), args[3], "+r");
 								default:
@@ -334,10 +334,10 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 							}
 						case "capital":
 						case "founder":
-						case "nationzoneoverride":
+						case "empirezoneoverride":
 						case "plot":
 							if (args.length == 3)
-								return getTownyStartingWith(args[2], "t");
+								return getTownyStartingWith(args[2], "k");
 						case "about":
 						case "title":
 						case "surname":
@@ -431,7 +431,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 					default:
 						return Collections.emptyList();
 				}
-			case "town":
+			case "kingdom":
 				if (args.length == 2) {
 					return filterByStartOrGetTownyStartingWith(Collections.singletonList("new"), args[1], "+t");
 				} else if (args.length > 2 && !args[1].equalsIgnoreCase("new")) {
@@ -520,7 +520,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 								return getTownyStartingWith(args[4], "r");
 						case "merge", "forcemerge":
 							if (args.length == 4)
-								return getTownyStartingWith(args[3], "t");
+								return getTownyStartingWith(args[3], "k");
 						default:
 							if (args.length == 3)
 								return NameUtil.filterByStart(TownyCommandAddonAPI.getTabCompletes(CommandType.TOWNYADMIN_TOWN, adminTownTabCompletes), args[2]);
@@ -531,7 +531,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 					return getTownyStartingWith(args[3], "r");
 				}
 				break;
-			case "nation":
+			case "empire":
 				if (args.length == 2) {
 					return filterByStartOrGetTownyStartingWith(Collections.singletonList("new"), args[1], "+n");
 				} else if (args.length > 2 && !args[1].equalsIgnoreCase("new")) {
@@ -541,7 +541,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 					switch (args[2].toLowerCase(Locale.ROOT)) {
 						case "add":
 							if (args.length == 4)
-								return getTownyStartingWith(args[3], "t");
+								return getTownyStartingWith(args[3], "k");
 						case "toggle":
 							if (args.length == 4) 
 								return NameUtil.filterByStart(NationCommand.nationToggleTabCompletes, args[3]);
@@ -559,10 +559,10 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 							break;
 						case "merge", "forcemerge":
 							if (args.length == 4)
-								return getTownyStartingWith(args[3], "n");
+								return getTownyStartingWith(args[3], "e");
 						case "transfer":
 							if (args.length == 4)
-								return getTownyStartingWith(args[3], "t");
+								return getTownyStartingWith(args[3], "k");
 						case "rank":
 							if (args.length == 4)
 								return NameUtil.filterByStart(Arrays.asList("add","remove"), args[3]);
@@ -585,7 +585,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 							if (args.length == 4)
 								return Arrays.asList("add", "remove");
 							if (args.length == 5)
-								return getTownyStartingWith(args[4], "n");
+								return getTownyStartingWith(args[4], "e");
 						default:
 							if (args.length == 3)
 								return NameUtil.filterByStart(TownyCommandAddonAPI.getTabCompletes(CommandType.TOWNYADMIN_NATION, adminNationTabCompletes), args[2]);
@@ -593,13 +593,13 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 								return NameUtil.filterByStart(TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN_NATION, args[2]).getTabCompletion(sender, StringMgmt.remFirstArg(args)), args[args.length-1]);
 					}
 				} else if (args.length == 4 && args[1].equalsIgnoreCase("new")) {
-					return getTownyStartingWith(args[3], "t");
+					return getTownyStartingWith(args[3], "k");
 				}
 				break;
 			case "unclaim":
 				if (args.length == 2)
 					return NameUtil.filterByStart(TownCommand.townUnclaimTabCompletes, args[1]);
-			case "townyperms":
+			case "kingdomperms":
 				if (args.length == 2)
 					return NameUtil.filterByStart(adminTownyPermsCompletes, args[1]);
 				if (args.length > 2) {
@@ -610,14 +610,14 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 							if (args.length == 4)
 								return NameUtil.filterByStart(Arrays.asList("addperm","removeperm"), args[3]);
 							break;
-						case "townrank":
-						case "nationrank":
+						case "kingdomrank":
+						case "empirerank":
 							if (args.length == 3) 
 								return NameUtil.filterByStart(Arrays.asList("addrank","removerank"), args[2]);
 							if (args.length > 3 && args[2].equalsIgnoreCase("remove")) {
-								if (args[1].equalsIgnoreCase("nationrank"))
+								if (args[1].equalsIgnoreCase("empirerank"))
 									return NameUtil.filterByStart(TownyPerms.getNationRanks(), args[3]);
-								if (args[1].equalsIgnoreCase("townrank"))
+								if (args[1].equalsIgnoreCase("kingdomrank"))
 									return NameUtil.filterByStart(TownyPerms.getTownRanks(), args[3]);
 							}
 							break;
@@ -653,9 +653,9 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 							return NameUtil.filterByStart(adminEcoInfoTabCompletes, args[2]);
 						if (args.length == 4) {
 							switch (args[2].toLowerCase(Locale.ROOT)) {
-							case "nation": return BaseCommand.getTownyStartingWith(args[3], "n");
+							case "empire": return BaseCommand.getTownyStartingWith(args[3], "e");
 							case "resident": return BaseCommand.getTownyStartingWith(args[3], "r");
-							case "town": return BaseCommand.getTownyStartingWith(args[3], "t");
+							case "kingdom": return BaseCommand.getTownyStartingWith(args[3], "k");
 							default: return Collections.emptyList();
 							}
 						}
@@ -683,8 +683,8 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		switch (split[0].toLowerCase(Locale.ROOT)) {
 		case "set" -> adminSet(sender, StringMgmt.remFirstArg(split));
 		case "resident" -> parseAdminResidentCommand(sender, StringMgmt.remFirstArg(split));
-		case "town" -> parseAdminTownCommand(sender, StringMgmt.remFirstArg(split));
-		case "nation" -> parseAdminNationCommand(sender, StringMgmt.remFirstArg(split));
+		case "kingdom" -> parseAdminTownCommand(sender, StringMgmt.remFirstArg(split));
+		case "empire" -> parseAdminNationCommand(sender, StringMgmt.remFirstArg(split));
 		case "toggle" -> parseToggleCommand(sender, StringMgmt.remFirstArg(split));
 		case "plot" -> parseAdminPlotCommand(catchConsole(sender), StringMgmt.remFirstArg(split));
 		case "givebonus", "giveplots" -> giveBonus(sender, StringMgmt.remFirstArg(split));
@@ -699,13 +699,13 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		case "unclaim" -> parseAdminUnclaimCommand(catchConsole(sender), StringMgmt.remFirstArg(split));
 		case "checkperm" -> parseAdminCheckPermCommand(sender, StringMgmt.remFirstArg(split));
 		case "checkoutposts" -> parseAdminCheckOutpostsCommand(sender, null);
-		case "townyperms" -> parseAdminTownyPermsCommand(sender, StringMgmt.remFirstArg(split));
+		case "kingdomperms" -> parseAdminTownyPermsCommand(sender, StringMgmt.remFirstArg(split));
 		case "tpplot" -> parseAdminTpPlotCommand(catchConsole(sender), StringMgmt.remFirstArg(split));
 		case "eco" -> parseAdminEcoCommand(sender, StringMgmt.remFirstArg(split));
 		case "install" -> parseAdminInstall(sender);
 		default -> {
 			if (TownyCommandAddonAPI.hasCommand(CommandType.TOWNYADMIN, split[0])) {
-				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN, split[0]).execute(sender, "townyadmin", split);
+				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN, split[0]).execute(sender, "kingdomadmin", split);
 				return;
 			}
 			HelpMenu.TA_HELP.send(sender);
@@ -738,8 +738,8 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 			// Alter a groups permission nodes.
 			parseAdminTownypermsGroupCommand(sender, StringMgmt.remFirstArg(args));
 			break;
-		case "townrank":
-		case "nationrank":
+		case "kingdomrank":
+		case "empirerank":
 			// Create and remove town and nation ranks.
 			parseAdminTownypermsRankCommand(sender, args);
 			break;
@@ -819,7 +819,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 			return;
 		}
 
-		if ((!args[0].equalsIgnoreCase("townrank") && !args[0].equalsIgnoreCase("nationrank"))
+		if ((!args[0].equalsIgnoreCase("kingdomrank") && !args[0].equalsIgnoreCase("empirerank"))
 			|| (!args[1].equalsIgnoreCase("addrank") && !args[1].equalsIgnoreCase("removerank"))
 			|| args.length != 3)
 			throw new TownyException(Translatable.of("msg_err_expected_command_format", "/ta townyperms townrank|nationrank addrank|removerank [rank]"));
@@ -834,9 +834,9 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 	}
 
 	private void parseAdminTownypermsAddRank(CommandSender sender, String rankType, String rank) throws TownyException {
-		// rankType will equal "townrank" or "nationrank"
+		// rankType will equal "kingdomrank" or "empirerank"
 		// Adding to town ranks.
-		if (rankType.equalsIgnoreCase("townrank")) {
+		if (rankType.equalsIgnoreCase("kingdomrank")) {
 			if (TownyPerms.getTownRanks().contains(rank))
 				throw new TownyException(Translatable.of("msg_err_there_is_already_a_town_or_nationrank_called_x", rankType, rank));
 			TownyPerms.getTownyPermsFile().createSection("towns.ranks." + rank);
@@ -876,7 +876,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		switch (split[0].toLowerCase(Locale.ROOT)) {
 		case "db", "database" -> reloadDatabase(sender);
 		case "config" -> reloadConfig(sender, false);
-		case "perms", "townyperms", "permissions" -> reloadPerms(sender);
+		case "perms", "kingdomperms", "permissions" -> reloadPerms(sender);
 		case "language",  "lang" -> reloadLangs(sender);
 		case "all" -> {
 			// reloadDatabase() already reloads lang & config.
@@ -2085,7 +2085,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 		case "mayor":
 			adminSetMayor(sender, split);
 			break;
-		case "nationzoneoverride":
+		case "empirezoneoverride":
 			adminSetNationZoneOverride(sender, split);
 			break;
 		case "plot":
@@ -2102,7 +2102,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 			break;
 		default:
 			if (TownyCommandAddonAPI.hasCommand(CommandType.TOWNYADMIN_SET, split[0])) {
-				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN_SET, split[0]).execute(sender, "townyadmin", split);
+				TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN_SET, split[0]).execute(sender, "kingdomadmin", split);
 			} else {
 				TownyMessaging.sendErrorMsg(sender, Translatable.of("msg_err_invalid_property", "administrative"));
 			}
@@ -2403,7 +2403,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 
 		checkPermOrThrowWithMessage(sender, PermissionNodes.TOWNY_COMMAND_TOWNYADMIN_PURGE.getNode(), Translatable.of("msg_err_admin_only"));
 
-		final boolean townless = split.length == 2 && split[1].equalsIgnoreCase("townless");
+		final boolean townless = split.length == 2 && split[1].equalsIgnoreCase("kingdomless");
 		final Town town = !townless && split.length == 2 ? getTownOrThrow(split[1]) : null;
 
 		try {
@@ -2437,12 +2437,12 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 			case "regenerations" -> adminToggleRegenerations(sender, choice);
 			case "devmode" -> adminToggleDevMode(sender, choice);
 			case "debug" -> adminToggleDebug(sender, choice);
-			case "townwithdraw" -> adminToggleTownWithDraw(sender, choice);
-			case "nationwithdraw" -> adminToggleNationWithdraw(sender, choice);
+			case "kingdomwithdraw" -> adminToggleTownWithDraw(sender, choice);
+			case "empirewithdraw" -> adminToggleNationWithdraw(sender, choice);
 			case "npc" -> parseAdminToggleNPC(sender, split);
 			default -> {
 				if (TownyCommandAddonAPI.hasCommand(CommandType.TOWNYADMIN_TOGGLE, split[0])) {
-					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN_TOGGLE, split[0]).execute(sender, "townyadmin", split);
+					TownyCommandAddonAPI.getAddonCommand(CommandType.TOWNYADMIN_TOGGLE, split[0]).execute(sender, "kingdomadmin", split);
 					return;
 				}
 				HelpMenu.TA_TOGGLE.send(sender);
@@ -2878,7 +2878,7 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 			HelpMenu.TA_DEPOSITALL.send(sender);
 			return;
 		}
-		String reason = "townyadmin depositall";
+		String reason = "kingdomadmin depositall";
 		double amount = MoneyUtil.getMoneyAboveZeroOrThrow(split[0]);
 		TownyEconomyHandler.economyExecutor().execute(() -> {
 			for (Nation nation : TownyUniverse.getInstance().getNations())
@@ -3011,9 +3011,9 @@ public class TownyAdminCommand extends BaseCommand implements CommandExecutor {
 
 		Account account = switch (args[0].toLowerCase(Locale.ROOT)) {
 			case "serveraccount" -> TownyServerAccount.ACCOUNT;
-			case "nation" -> getNationOrThrow(args[1]).getAccount();
+			case "empire" -> getNationOrThrow(args[1]).getAccount();
 			case "resident" -> getResidentOrThrow(args[1]).getAccount();
-			case "town" -> getTownOrThrow(args[1]).getAccount();
+			case "kingdom" -> getTownOrThrow(args[1]).getAccount();
 			default -> null;
 		};
 

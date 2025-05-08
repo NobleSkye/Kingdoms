@@ -20,12 +20,12 @@ public enum HelpMenu {
 				.addTitle(Translation.of("help_0"))
 				.add(Translatable.of("help_1"))
 				.add("/resident", "?", Translatable.of("help_4"))
-				.add("/town", "?", Translatable.of("help_5"))
-				.add("/nation", "?", Translatable.of("help_6"))
+				.add("/kingdom", "?", Translatable.of("help_5"))
+				.add("/empire", "?", Translatable.of("help_6"))
 				.add("/plot", "?", Translatable.of("help_7"))
-				.add("/towny", "?", Translatable.of("help_8"))
-				.add("/tc", "[msg]", Translatable.of("help_2"))
-				.add("/nc", "[msg]", Translatable.of("help_3"));
+				.add("/kingdoms", "?", Translatable.of("help_8"))
+				.add("/kc", "[msg]", Translatable.of("help_2"))
+				.add("/ec", "[msg]", Translatable.of("help_3"));
 		}
 	},
 
@@ -36,13 +36,13 @@ public enum HelpMenu {
 				.addTitle(Translation.of("help_0"))
 				.add(Translatable.of("help_1"))
 				.add("/resident", "?", Translatable.of("help_4"))
-				.add("/town", "?", Translatable.of("help_5"))
-				.add("/nation", "?", Translatable.of("help_6"))
+				.add("/kingdom", "?", Translatable.of("help_5"))
+				.add("/empire", "?", Translatable.of("help_6"))
 				.add("/plot", "?", Translatable.of("help_7"))
-				.add("/towny", "?", Translatable.of("help_8"))
-				.add("/tc", "[msg]", Translatable.of("help_2"))
-				.add("/nc", "[msg]", Translatable.of("help_3"))
-				.add(Translation.of("admin_sing"), "/townyadmin", "?", Translatable.of("help_9"));
+				.add("/kingdoms", "?", Translatable.of("help_8"))
+				.add("/kc", "[msg]", Translatable.of("help_2"))
+				.add("/ec", "[msg]", Translatable.of("help_3"))
+				.add(Translation.of("admin_sing"), "/kingdom", "?", Translatable.of("help_9"));
 		}
 	},
 
@@ -50,7 +50,7 @@ public enum HelpMenu {
 	HELP {
 		@Override
 		public MenuBuilder load() {
-			return new MenuBuilder("towny", Translatable.of("towny_help_0"))
+			return new MenuBuilder("kingdoms", Translatable.of("towny_help_0"))
 				.add("map", Translatable.of("towny_help_1"))
 				.add("prices", Translatable.of("towny_help_2"))
 				.add("top", Translatable.of("towny_help_3"))
@@ -63,23 +63,23 @@ public enum HelpMenu {
 	TOWNY_TOP_HELP {
 		@Override
 		public MenuBuilder load() {
-			return new MenuBuilder("towny top")
-				.add("residents", "[all/town/nation]", Translatable.of("towny_top_help_0"))
+			return new MenuBuilder("kingdom top")
+				.add("residents", "[all/kingdom/empire]", Translatable.of("towny_top_help_0"))
 				.add("land", " [all/resident/town]", Translatable.of("towny_top_help_1"))
-				.add("balance", " [all/town/nation]", Translatable.of("towny_top_help_2"));
+				.add("balance", " [all/kingdom/empire]", Translatable.of("towny_top_help_2"));
 		}
 	},
 
 	TA_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin")
+			return new MenuBuilder("kingdomadmin")
 				.add("set [] .. []", Translatable.of("admin_panel_1"))
 				.add("unclaim [radius]", Translatable.of("admin_panel_4"))
 				.add("plot", Translatable.of("admin_panel_5"))
 				.add("givebonus [town/player] [num]", Translatable.of("admin_panel_6"))
 				.add("toggle", Translatable.of("admin_panel_7"))
-				.add("resident/town/nation", Translatable.of("admin_panel_8"))
+				.add("resident/kingdom/empire", Translatable.of("admin_panel_8"))
 				.add("tpplot {world} {x} {z}", Translatable.of("admin_panel_9"))
 				.add("checkperm {name} {node}", Translatable.of("admin_panel_10"))
 				.add("reload", Translatable.of("admin_panel_2"))
@@ -96,40 +96,40 @@ public enum HelpMenu {
 	TA_TOWN {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin town")
+			return new MenuBuilder("kingdomadmintown")
 				.add("new [name] [mayor]", Translatable.of("townyadmin_town_help_0"))
-				.add("[town]", Translatable.of("townyadmin_town_help_1"))
-				.add("[town] add/kick [] .. []", Translatable.of("townyadmin_town_help_2"))
-				.add("[town] rename [newname]", Translatable.of("townyadmin_town_help_3"))
-				.add("[town] delete", Translatable.of("townyadmin_town_help_4"))
-				.add("[town] spawn", Translatable.of("townyadmin_town_help_5"))
-				.add("[town] outpost #", Translatable.of("townyadmin_town_help_6"))
-				.add("[town] rank", Translatable.of("townyadmin_town_help_7"))
-				.add("[town] set", Translatable.of("townyadmin_town_help_8"))
-				.add("[town] toggle", Translatable.of("townyadmin_town_help_9"))
-				.add("[town] meta", Translatable.of("townyadmin_town_help_10"))
-				.add("[town] merge [townname]", Translatable.of("townyadmin_town_help_11"))
-				.add("[town] forcemerge [townname]", Translatable.of("townyadmin_town_help_12"))
-				.add("[town] deposit [amount]", Translatable.of("townyadmin_town_help_13"))
-				.add("[town] withdraw [amount]", Translatable.of("townyadmin_town_help_14"))
-				.add("[town] bankhistory", Translatable.of("townyadmin_town_help_15"))
-				.add("[town] outlaw [add|remove] [name]", Translatable.of("townyadmin_town_help_16"))
-				.add("[town] leavenation", Translatable.of("townyadmin_town_help_17"))
-				.add("[town] conquered", Translatable.of("townyadmin_town_help_18"));
+				.add("[kingdom]", Translatable.of("townyadmin_town_help_1"))
+				.add("[kingdom] add/kick [] .. []", Translatable.of("townyadmin_town_help_2"))
+				.add("[kingdom] rename [newname]", Translatable.of("townyadmin_town_help_3"))
+				.add("[kingdom] delete", Translatable.of("townyadmin_town_help_4"))
+				.add("[kingdom] spawn", Translatable.of("townyadmin_town_help_5"))
+				.add("[kingdom] outpost #", Translatable.of("townyadmin_town_help_6"))
+				.add("[kingdom] rank", Translatable.of("townyadmin_town_help_7"))
+				.add("[kingdom] set", Translatable.of("townyadmin_town_help_8"))
+				.add("[kingdom] toggle", Translatable.of("townyadmin_town_help_9"))
+				.add("[kingdom] meta", Translatable.of("townyadmin_town_help_10"))
+				.add("[kingdom] merge [townname]", Translatable.of("townyadmin_town_help_11"))
+				.add("[kingdom] forcemerge [townname]", Translatable.of("townyadmin_town_help_12"))
+				.add("[kingdom] deposit [amount]", Translatable.of("townyadmin_town_help_13"))
+				.add("[kingdom] withdraw [amount]", Translatable.of("townyadmin_town_help_14"))
+				.add("[kingdom] bankhistory", Translatable.of("townyadmin_town_help_15"))
+				.add("[kingdom] outlaw [add|remove] [name]", Translatable.of("townyadmin_town_help_16"))
+				.add("[kingdom] leavenation", Translatable.of("townyadmin_town_help_17"))
+				.add("[kingdom] conquered", Translatable.of("townyadmin_town_help_18"));
 		}
 	},
 
 	TA_TOWN_OUTLAW {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta town [town] outlaw")
+			return new MenuBuilder("ka kingdom [kingdom] outlaw")
 				.add("[add|remove] [name]", Translatable.of("townyadmin_town_help_16"));
 		}
 	},
 	TA_TOWN_SET {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta town [town] set")
+			return new MenuBuilder("ka kingdom [kingdom] set")
 				.add("foundingdate [unix-timestamp]", Translatable.of("townyadmin_town_set_help_0"))
 				.add("board [message ... ]", Translatable.of("town_set_help_0"))
 				.add("mayor " + Translation.of("town_help_2"), Translatable.of("ta_set_help_0"))
@@ -150,7 +150,7 @@ public enum HelpMenu {
 	TA_TOWN_TOGGLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta town {townname} toggle")
+			return new MenuBuilder("ka kingdom {townname} toggle")
 				.add("pvp", Translatable.of("townyadmin_town_toggle_help_0"))
 				.add("forcepvp", Translatable.of("townyadmin_town_toggle_help_1"))
 				.add("public", Translatable.of("townyadmin_town_toggle_help_2"))
@@ -166,22 +166,22 @@ public enum HelpMenu {
 	TA_NATION {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin nation")
+			return new MenuBuilder("kingdomadmin nation")
 				.add("new [name] [capital]", Translatable.of("townyadmin_nation_help_0"))
-				.add("[nation]", Translatable.of("townyadmin_nation_help_1"))
-				.add("[nation] add [] .. []", Translatable.of("townyadmin_nation_help_2"))
-				.add("[nation] kick [] .. []", Translatable.of("townyadmin_nation_help_3"))
-				.add("[nation] rename [newname]", Translatable.of("townyadmin_nation_help_4"))
-				.add("[nation] delete", Translatable.of("townyadmin_nation_help_5"))
-				.add("[nation] recheck", Translatable.of("townyadmin_nation_help_6"))
-				.add("[nation] merge [nationname]", Translatable.of("townyadmin_nation_help_7"))
-				.add("[nation] forcemerge [nationname]", Translatable.of("townyadmin_nation_help_8"))
-				.add("[nation] toggle", Translatable.of("townyadmin_nation_help_9"))
-				.add("[nation] set", Translatable.of("townyadmin_nation_help_10"))
-				.add("[nation] deposit [amount]", Translatable.of("townyadmin_nation_help_11"))
-				.add("[nation] withdraw [amount]", Translatable.of("townyadmin_nation_help_12"))
-				.add("[nation] bankhistory", Translatable.of("townyadmin_nation_help_13"))
-				.add("[nation] transfer [townname]", Translatable.of("townyadmin_nation_help_14"))
+				.add("[empire]", Translatable.of("townyadmin_nation_help_1"))
+				.add("[empire] add [] .. []", Translatable.of("townyadmin_nation_help_2"))
+				.add("[empire] kick [] .. []", Translatable.of("townyadmin_nation_help_3"))
+				.add("[empire] rename [newname]", Translatable.of("townyadmin_nation_help_4"))
+				.add("[empire] delete", Translatable.of("townyadmin_nation_help_5"))
+				.add("[empire] recheck", Translatable.of("townyadmin_nation_help_6"))
+				.add("[empire] merge [nationname]", Translatable.of("townyadmin_nation_help_7"))
+				.add("[empire] forcemerge [nationname]", Translatable.of("townyadmin_nation_help_8"))
+				.add("[empire] toggle", Translatable.of("townyadmin_nation_help_9"))
+				.add("[empire] set", Translatable.of("townyadmin_nation_help_10"))
+				.add("[empire] deposit [amount]", Translatable.of("townyadmin_nation_help_11"))
+				.add("[empire] withdraw [amount]", Translatable.of("townyadmin_nation_help_12"))
+				.add("[empire] bankhistory", Translatable.of("townyadmin_nation_help_13"))
+				.add("[empire] transfer [townname]", Translatable.of("townyadmin_nation_help_14"))
 				.add("rank [add/remove] [resident] [rank]", Translatable.of("townyadmin_nation_help_15"));
 		}
 	}, 
@@ -189,23 +189,23 @@ public enum HelpMenu {
 	TA_NATION_SET {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta nation [nation] set")
+			return new MenuBuilder("ka empire [empire] set")
 				.add("foundingdate [unix-timestamp]", Translatable.of("townyadmin_nation_set_help_0"))
 				.add("new [name] [capital]", Translatable.of("townyadmin_nation_help_0"))
-				.add("[nation]", Translatable.of("townyadmin_nation_help_1"))
-				.add("[nation] add [] .. []", Translatable.of("townyadmin_nation_help_2"))
-				.add("[nation] kick [] .. []", Translatable.of("townyadmin_nation_help_3"))
-				.add("[nation] rename [newname]", Translatable.of("townyadmin_nation_help_4"))
-				.add("[nation] delete", Translatable.of("townyadmin_nation_help_5"))
-				.add("[nation] recheck", Translatable.of("townyadmin_nation_help_6"))
-				.add("[nation] merge [nationname]", Translatable.of("townyadmin_nation_help_7"))
-				.add("[nation] forcemerge [nationname]", Translatable.of("townyadmin_nation_help_8"))
-				.add("[nation] toggle", Translatable.of("townyadmin_nation_help_9"))
-				.add("[nation] set", Translatable.of("townyadmin_nation_help_10"))
-				.add("[nation] deposit [amount]", Translatable.of("townyadmin_nation_help_11"))
-				.add("[nation] withdraw [amount]", Translatable.of("townyadmin_nation_help_12"))
-				.add("[nation] bankhistory", Translatable.of("townyadmin_nation_help_13"))
-				.add("[nation] transfer [townname]", Translatable.of("townyadmin_nation_help_14"))
+				.add("[empire]", Translatable.of("townyadmin_nation_help_1"))
+				.add("[empire] add [] .. []", Translatable.of("townyadmin_nation_help_2"))
+				.add("[empire] kick [] .. []", Translatable.of("townyadmin_nation_help_3"))
+				.add("[empire] rename [newname]", Translatable.of("townyadmin_nation_help_4"))
+				.add("[empire] delete", Translatable.of("townyadmin_nation_help_5"))
+				.add("[empire] recheck", Translatable.of("townyadmin_nation_help_6"))
+				.add("[empire] merge [empirename]", Translatable.of("townyadmin_nation_help_7"))
+				.add("[empire] forcemerge [empirename]", Translatable.of("townyadmin_nation_help_8"))
+				.add("[empire] toggle", Translatable.of("townyadmin_nation_help_9"))
+				.add("[empire] set", Translatable.of("townyadmin_nation_help_10"))
+				.add("[empire] deposit [amount]", Translatable.of("townyadmin_nation_help_11"))
+				.add("[empire] withdraw [amount]", Translatable.of("townyadmin_nation_help_12"))
+				.add("[empire] bankhistory", Translatable.of("townyadmin_nation_help_13"))
+				.add("[empire] transfer [townname]", Translatable.of("townyadmin_nation_help_14"))
 				.add("rank [add/remove] [resident] [rank]", Translatable.of("townyadmin_nation_help_15"));
 		}
 	},
@@ -213,7 +213,7 @@ public enum HelpMenu {
 	TA_NATION_RANK {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta nation [nation] rank")
+			return new MenuBuilder("ka empire [empire] rank")
 				.add("add [resident] [rank]", Translatable.of("townyadmin_nationrank_help_0"))
 				.add("remove [resident] [rank]", Translatable.of("townyadmin_nationrank_help_1"));
 		}
@@ -222,7 +222,7 @@ public enum HelpMenu {
 	TA_UNCLAIM {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin unclaim", Translation.of("admin_sing"),
+			return new MenuBuilder("kingdomadmin unclaim", Translation.of("admin_sing"),
 				Translatable.of("townyadmin_help_1"))
 				.add("[radius]", Translatable.of("townyadmin_help_2"));
 		}
@@ -231,7 +231,7 @@ public enum HelpMenu {
 	TA_DATABASE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin database")
+			return new MenuBuilder("kingdomadmin database")
 				.add("save", Translatable.of("townyadmin_database_help_0"))
 				.add("load", Translatable.of("townyadmin_database_help_1"))
 				.add("remove titles", Translatable.of("townyadmin_database_help_2"));
@@ -241,7 +241,7 @@ public enum HelpMenu {
 	TA_PLOT {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin plot")
+			return new MenuBuilder("kingdomadmin plot")
 				.add("claim [player]", Translatable.of("ta_plot_help_0"))
 				.add("meta", Translatable.of("ta_plot_help_1"))
 				.add("meta set [key] [value]", Translatable.of("ta_plot_help_2"))
@@ -252,7 +252,7 @@ public enum HelpMenu {
 	TA_RESIDENT {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin resident")
+			return new MenuBuilder("kingdomadmin resident")
 				.add("[resident]", Translatable.of("res_3"))
 				.add("[resident] about clear", Translatable.of("ta_resident_help_4"))
 				.add("[resident] rename [newname]", Translatable.of("ta_resident_help_0"))
@@ -265,7 +265,7 @@ public enum HelpMenu {
 	TA_RESIDENT_FRIEND {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin resident [resident] friend")
+			return new MenuBuilder("kingdomadmin resident [resident] friend")
 				.add("[add|remove] [resident]", Translatable.of("ta_resident_help_1"))
 				.add("list|clear", Translatable.of("ta_resident_help_2"));
 		}
@@ -274,12 +274,12 @@ public enum HelpMenu {
 	TA_TOGGLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin toggle")
+			return new MenuBuilder("kingdomadmin toggle")
 				.add("wildernessuse", Translatable.of("ta_toggle_help_0"))
 				.add("regenerations", Translatable.of("ta_toggle_help_1"))
 				.add("devmode", Translatable.of("ta_toggle_help_2"))
 				.add("debug", Translatable.of("ta_toggle_help_3"))
-				.add("townwithdraw/nationwithdraw", Translatable.of("ta_toggle_help_4"))
+				.add("townwithdraw/empirewithdraw", Translatable.of("ta_toggle_help_4"))
 				.add("npc [resident]", Translatable.of("ta_toggle_help_5"));
 		}
 	},
@@ -287,63 +287,63 @@ public enum HelpMenu {
 	TA_TOWNYPERMS {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("ta townyperms")
+			return new MenuBuilder("ka townyperms")
 				.add("listgroups", Translatable.of("help_ta_perms_listgroups"))
 				.add("group [group]", Translatable.of("help_ta_perms_group"))
 				.add("group [group] addperm [node]", Translatable.of("help_ta_perms_groupaddpermnode"))
 				.add("group [group] removeperm [node]", Translatable.of("help_ta_perms_groupremovepermnode"))
-				.add("townrank addrank [rank]", Translatable.of("help_ta_perms_townrankadd"))
-				.add("townrank removerank [rank]", Translatable.of("help_ta_perms_townrankremove"))
-				.add("nationrank addrank [rank]", Translatable.of("help_ta_perms_nationrankadd"))
-				.add("nationrank removerank [rank]", Translatable.of("help_ta_perms_nationrankremove"));
+				.add("kingdomrank addrank [rank]", Translatable.of("help_ta_perms_townrankadd"))
+				.add("kingdomrank removerank [rank]", Translatable.of("help_ta_perms_townrankremove"))
+				.add("empirerank addrank [rank]", Translatable.of("help_ta_perms_nationrankadd"))
+				.add("empirerank removerank [rank]", Translatable.of("help_ta_perms_nationrankremove"));
 		}
 	},
 	
 	TA_SET {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set")
-				.add("mayor [town] " + Translatable.of("town_help_2"), Translatable.of("ta_set_help_0"))
-				.add("mayor [town] npc", Translatable.of("ta_set_help_1"))
-				.add("capital [town] [nation]", Translatable.of("ta_set_help_2"))
+			return new MenuBuilder("kingdomadmin set")
+				.add("mayor [kingdom] " + Translatable.of("town_help_2"), Translatable.of("ta_set_help_0"))
+				.add("mayor [kingdom] npc", Translatable.of("ta_set_help_1"))
+				.add("capital [kingdom] [empire]", Translatable.of("ta_set_help_2"))
 				.add("nationzoneoverride [town name] [size]", Translatable.of("ta_set_help_3"))
 				.add("title [resident] [title]", Translatable.of("ta_set_help_4"))
 				.add("surname [resident] [surname]", Translatable.of("ta_set_help_5"))
-				.add("plot [town]", Translatable.of("ta_set_help_6"))
-				.add("founder [town] foundername", Translatable.of("ta_set_help_7"));
+				.add("plot [kingdom]", Translatable.of("ta_set_help_6"))
+				.add("founder [kingdom] foundername", Translatable.of("ta_set_help_7"));
 		}
 	},
 	
 	TA_SET_MAYOR {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set mayor")
-				.add("[town] " + Translatable.of("town_help_2"), Translatable.of("ta_set_help_0"))
-				.add("[town] npc", Translatable.of("ta_set_help_1"));
+			return new MenuBuilder("kingdomadmin set mayor")
+				.add("[kingdom] " + Translatable.of("town_help_2"), Translatable.of("ta_set_help_0"))
+				.add("[kingdom] npc", Translatable.of("ta_set_help_1"));
 		}
 	},
 
 	TA_SET_CAPITAL {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set capital")
-				.add("[town] [nation]", Translatable.of("ta_set_help_2"));
+			return new MenuBuilder("kingdomadmin set capital")
+				.add("[kingdom] [empire]", Translatable.of("ta_set_help_2"));
 		}
 	},
 
 	TA_SET_FOUNDER {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set founder")
-				.add("[town] [foundername]", Translatable.of("ta_set_help_7"));
+			return new MenuBuilder("kingdomadmin set founder")
+				.add("[kingdom] [foundername]", Translatable.of("ta_set_help_7"));
 		}
 	},
 
 	TA_SET_PLOT {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set plot")
-				.add("[town]",  Translatable.of("msg_admin_set_plot_help_1"))
+			return new MenuBuilder("kingdomadmin set plot")
+				.add("[kingdom]",  Translatable.of("msg_admin_set_plot_help_1"))
 				.add("[town name] {rect|circle} {radius}", Translatable.of("msg_admin_set_plot_help_2"))
 				.add("[town name] {rect|circle} auto", Translatable.of("msg_admin_set_plot_help_2"));
 		}
@@ -352,7 +352,7 @@ public enum HelpMenu {
 	TA_SET_NATIONZONE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin set nationzoneoverride")
+			return new MenuBuilder("kingdomadmin set nationzoneoverride")
 				.add("[town name] [size]", Translatable.of("ta_set_help_3"))
 				.add("[town name] 0", Translatable.of("ta_set_help_8"));
 		}
@@ -361,15 +361,15 @@ public enum HelpMenu {
 	TA_PURGE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin purge")
-				.add("[number of days] {townless|townname}", Translatable.of("ta_purge_help_0"));
+			return new MenuBuilder("kingdomadmin purge")
+				.add("[number of days] {kingdomless|kingdomname}", Translatable.of("ta_purge_help_0"));
 		}
 	},
 
 	TA_NATION_META {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin nation [nationname] meta")
+			return new MenuBuilder("kingdomadmin nation [empirename] meta")
 				.add("", Translatable.of("ta_nationmeta_help_1"))
 				.add("set [key] [value]", Translatable.of("ta_nationmeta_help_2"))
 				.add("add|remove [key]", Translatable.of("ta_nationmeta_help_3"));
@@ -379,7 +379,7 @@ public enum HelpMenu {
 	TA_TOWN_META {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin town [townname] meta")
+			return new MenuBuilder("kingdomadmin town [kingdomname] meta")
 				.add("", Translatable.of("ta_townmeta_help_1"))
 				.add("set [key] [value]", Translatable.of("ta_townmeta_help_2"))
 				.add("add|remove [key]", Translatable.of("ta_townmeta_help_3"));
@@ -389,7 +389,7 @@ public enum HelpMenu {
 	TA_RESIDENT_META {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin resident [residentname] meta")
+			return new MenuBuilder("kingdomadmin resident [residentname] meta")
 				.add("", Translatable.of("ta_residentmeta_help_1"))
 				.add("set [key] [value]", Translatable.of("ta_residentmeta_help_2"))
 				.add("add|remove [key]", Translatable.of("ta_residentmeta_help_3"));
@@ -399,7 +399,7 @@ public enum HelpMenu {
 	TA_PLOT_META {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin plot meta")
+			return new MenuBuilder("kingdomadmin plot meta")
 				.add("", Translatable.of("ta_plot_help_1"))
 				.add("set [key] [value]", Translatable.of("ta_plot_help_2"))
 				.add("add|remove [key]", Translatable.of("ta_plot_help_3"));
@@ -409,7 +409,7 @@ public enum HelpMenu {
 	TA_RELOAD {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin reload")
+			return new MenuBuilder("kingdomadmin reload")
 				.add("database", Translatable.of("ta_reload_help_0"))
 				.add("config", Translatable.of("ta_reload_help_1"))
 				.add("lang", Translatable.of("ta_reload_help_2"))
@@ -421,7 +421,7 @@ public enum HelpMenu {
 	TA_ECO {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin eco")
+			return new MenuBuilder("kingdomadmin eco")
 				.add("resetbanks {amount}", Translatable.of("ta_eco_resetbanks_help"))
 				.add("depositall [amount]", Translatable.of("ta_depositall_help_0"))
 				.add("convert modern", Translatable.of("ta_eco_convert_modern_help"))
@@ -433,7 +433,7 @@ public enum HelpMenu {
 	TA_DEPOSITALL {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin eco depositall")
+			return new MenuBuilder("kingdomadmin eco depositall")
 				.add("[amount]", Translatable.of("ta_depositall_help_0"));
 		}
 	},
@@ -441,11 +441,11 @@ public enum HelpMenu {
 	TA_ECO_INFO {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyadmin eco info")
-				.add("nation [nationname]", Translatable.of("ta_info_help_0"))
+			return new MenuBuilder("kingdomadmin eco info")
+				.add("empire [empirename]", Translatable.of("ta_info_help_0"))
 				.add("resident [residentname]", Translatable.of("ta_info_help_1"))
 				.add("serveraccount", Translatable.of("ta_info_help_2"))
-				.add("town [townname]", Translatable.of("ta_info_help_3"));
+				.add("kingdom [kingdomname]", Translatable.of("ta_info_help_3"));
 		}
 	},
 
@@ -461,14 +461,14 @@ public enum HelpMenu {
 
 		@Override
 		protected MenuBuilder load() {
-			return load(new MenuBuilder("townyworld", Translatable.of("world_help_1")));
+			return load(new MenuBuilder("kingdomyworld", Translatable.of("world_help_1")));
 		}
 	},
 
 	TOWNYWORLD_HELP_CONSOLE {
 		@Override
 		protected MenuBuilder load() {
-			return TOWNYWORLD_HELP.load(new MenuBuilder("townyworld {world}", Translatable.of("world_help_1")));
+			return TOWNYWORLD_HELP.load(new MenuBuilder("kingdomyworld {world}", Translatable.of("world_help_1")));
 		}
 	},
 
@@ -480,21 +480,21 @@ public enum HelpMenu {
 
 		@Override
 		protected MenuBuilder load() {
-			return load(new MenuBuilder("townyworld set"));
+			return load(new MenuBuilder("kingdomyworld set"));
 		}
 	},
 
 	TOWNYWORLD_SET_CONSOLE {
 		@Override
 		protected MenuBuilder load() {
-			return TOWNYWORLD_SET.load(new MenuBuilder("townyworld set {world}"));
+			return TOWNYWORLD_SET.load(new MenuBuilder("kingdomyworld set {world}"));
 		}
 	},
 	
 	TOWNYWORLD_TOGGLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyworld toggle")
+			return new MenuBuilder("kingdomyworld toggle")
 				.add("claimable", Translatable.of("world_toggle_help_0"))
 				.add("usingtowny", Translatable.of("world_toggle_help_1"))
 				.add("warallowed", Translatable.of("world_toggle_help_2"))
@@ -502,7 +502,7 @@ public enum HelpMenu {
 				.add("friendlyfire", Translatable.of("world_toggle_help_4"))
 				.add("explosion/forceexplosion", Translatable.of("world_toggle_help_5"))
 				.add("fire/forcefire", Translatable.of("world_toggle_help_6"))
-				.add("townmobs/wildernessmobs/worldmobs", Translatable.of("world_toggle_help_7"))
+				.add("kingdommobs/wildernessmobs/worldmobs", Translatable.of("world_toggle_help_7"))
 				.add("revertunclaim", Translatable.of("world_toggle_help_8"))
 				.add("revertentityexpl/revertblockexpl", Translatable.of("world_toggle_help_9"))
 				.add("plotcleardelete", Translatable.of("world_toggle_help_10"))
@@ -513,7 +513,7 @@ public enum HelpMenu {
 	TOWNYWORLD_TOGGLE_CONSOLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("townyworld {worldname} toggle")
+			return new MenuBuilder("kingdomyworld {worldname} toggle")
 				.add("claimable", Translatable.of("world_toggle_help_0"))
 				.add("usingtowny", Translatable.of("world_toggle_help_1"))
 				.add("warallowed", Translatable.of("world_toggle_help_2"))
@@ -521,7 +521,7 @@ public enum HelpMenu {
 				.add("friendlyfire", Translatable.of("world_toggle_help_4"))
 				.add("explosion/forceexplosion", Translatable.of("world_toggle_help_5"))
 				.add("fire/forcefire", Translatable.of("world_toggle_help_6"))
-				.add("townmobs/wildernessmobs/worldmobs", Translatable.of("world_toggle_help_7"))
+				.add("kingdommobs/wildernessmobs/worldmobs", Translatable.of("world_toggle_help_7"))
 				.add("revertunclaim", Translatable.of("world_toggle_help_8"))
 				.add("revertentityexpl/revertblockexpl", Translatable.of("world_toggle_help_9"))
 				.add("plotcleardelete", Translatable.of("world_toggle_help_10"))
@@ -532,8 +532,8 @@ public enum HelpMenu {
 	TOWN_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town", Translatable.of("town_help_1"))
-				.add("[town]", Translatable.of("town_help_3"))
+			return new MenuBuilder("kingdom", Translatable.of("town_help_1"))
+				.add("[kingdom]", Translatable.of("town_help_3"))
 				.add("new [name]", Translatable.of("town_help_11"))
 				.add("here", Translatable.of("town_help_4"))
 				.add("list", Translatable.of("town_help_26"))
@@ -554,24 +554,24 @@ public enum HelpMenu {
 				.add(Translation.of("res_sing"), "deposit [$]", Translatable.of("town_help_22"))
 				.add(Translation.of("res_sing"), "rank add/remove [resident] [rank]", Translatable.of("town_help_23"))
 				.add(Translation.of("mayor_sing"), "mayor ?", Translatable.of("town_help_8"))
-				.add(Translation.of("admin_sing"), "delete [town]", Translatable.of("town_help_24"));
+				.add(Translation.of("admin_sing"), "delete [kingdom]", Translatable.of("town_help_24"));
 		}
 	},
 	
 	TOWN_HELP_CONSOLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town")
-				.add("[town]", Translatable.of("town_help_3"))
+			return new MenuBuilder("kingdom")
+				.add("[kingdom]", Translatable.of("town_help_3"))
 				.add("list", Translatable.of("town_help_26"))
-				.add("reslist [town]", Translatable.of("town_help_13"));
+				.add("reslist [kingdom]", Translatable.of("town_help_13"));
 		}
 	},
 	
 	TOWN_OUTLAW_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town outlaw")
+			return new MenuBuilder("kingdom outlaw")
 				.add("add/remove [name]", Translatable.of("town_help_25"));
 		}
 	},
@@ -579,7 +579,7 @@ public enum HelpMenu {
 	TOWN_LIST {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town list")
+			return new MenuBuilder("kingdom list")
 				.add("{page #}", Translatable.of("town_list_help_0"))
 				.add("{page #} by residents", Translatable.of("town_list_help_1"))
 				.add("{page #} by open", Translatable.of("town_list_help_2"))
@@ -593,7 +593,7 @@ public enum HelpMenu {
 	TOWN_RANK {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town rank")
+			return new MenuBuilder("kingdom rank")
 					.add("add|remove [resident] [rank]", Translatable.of("nation_help_17")); // This fits for the town command.
 		}
 	},
@@ -601,7 +601,7 @@ public enum HelpMenu {
 	TOWN_SET {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town set")
+			return new MenuBuilder("kingdom set")
 				.add("board [message ... ]", Translatable.of("town_set_help_0"))
 				.add("mayor " + Translation.of("town_help_2"), Translatable.of("ta_set_help_0"))
 				.add("homeblock", Translatable.of("town_set_help_1"))
@@ -621,7 +621,7 @@ public enum HelpMenu {
 	TOWN_TOGGLE_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town toggle")
+			return new MenuBuilder("kingdom toggle")
 				.add("pvp", Translatable.of("townyadmin_town_toggle_help_0"))
 				.add("public", Translatable.of("townyadmin_town_toggle_help_2"))
 				.add("explosion", Translatable.of("townyadmin_town_toggle_help_3"))
@@ -635,15 +635,15 @@ public enum HelpMenu {
 	TOWN_CEDE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town cede")
-				.add("plot [townname]", Translatable.of("town_cede_help"));
+			return new MenuBuilder("kingdom cede")
+				.add("plot [kingdomname]", Translatable.of("town_cede_help"));
 		}
 	},
 
 	TOWN_CLAIM {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town claim")
+			return new MenuBuilder("kingdom claim")
 				.add("", Translatable.of("msg_block_claim"))
 				.add("outpost", Translatable.of("mayor_help_3"))
 				.add("[auto]", Translatable.of("mayor_help_5"))
@@ -655,7 +655,7 @@ public enum HelpMenu {
 	TOWN_UNCLAIM {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town unclaim")
+			return new MenuBuilder("kingdom unclaim")
 				.add("", Translatable.of("mayor_help_6"))
 				.add("[circle/rect] [radius]", Translatable.of("mayor_help_7"))
 				.add("all", Translatable.of("mayor_help_8"));
@@ -665,7 +665,7 @@ public enum HelpMenu {
 	TOWN_JAIL {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town jail")
+			return new MenuBuilder("kingdom jail")
 				.add("list", Translatable.of("town_jail_help_0"))
 				.add("[resident]", Translatable.of("town_jail_help_1"))
 				.add("[resident] [hours]", Translatable.of("town_jail_help_2"))
@@ -677,7 +677,7 @@ public enum HelpMenu {
 	TOWN_JAILWITHBAIL {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town jail")
+			return new MenuBuilder("kingdom jail")
 				.add("list", Translatable.of("town_jail_help_0"))
 				.add("[resident]", Translatable.of("town_jail_help_1"))
 				.add("[resident] [hours]", Translatable.of("town_jail_help_2"))
@@ -690,7 +690,7 @@ public enum HelpMenu {
 	TOWN_UNJAIL {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town unjail")
+			return new MenuBuilder("kingdom unjail")
 				.add("[resident]", Translatable.of("town_jail_help_8"));
 		}
 	},
@@ -698,7 +698,7 @@ public enum HelpMenu {
 	TOWN_PURGE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town purge")
+			return new MenuBuilder("kingdom purge")
 				.add("[days]", Translatable.of("town_purge_help"));
 		}
 	},
@@ -707,21 +707,21 @@ public enum HelpMenu {
 	TOWN_INVITE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town invite")
+			return new MenuBuilder("kingdom invite")
 				.add("[player]", Translatable.of("town_invite_help_1"))
 				.add("-[player]", Translatable.of("town_invite_help_2"))
 				.add("sent", Translatable.of("town_invite_help_3"))
 				.add("sent removeall", Translatable.of("town_invite_help_7"))
 				.add("received", Translatable.of("town_invite_help_4"))
-				.add("accept [nation]", Translatable.of("town_invite_help_5"))
-				.add("deny [nation]", Translatable.of("town_invite_help_6"));
+				.add("accept [empire]", Translatable.of("town_invite_help_5"))
+				.add("deny [empire]", Translatable.of("town_invite_help_6"));
 		}
 	},
 
 	TOWN_BUY {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town buy")
+			return new MenuBuilder("kingdom buy")
 				.add("bonus [n]", Translatable.of("town_buy_help"));
 		}
 	},
@@ -940,7 +940,7 @@ public enum HelpMenu {
 	NATION_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation", Translatable.of("nation_help_1"))
+			return new MenuBuilder("empire", Translatable.of("nation_help_1"))
 				.add(Translation.of("nation_help_2"), Translatable.of("nation_help_3"))
 				.add("list", Translatable.of("nation_help_4"))
 				.add("townlist (nation)", Translatable.of("nation_help_11"))
@@ -951,7 +951,7 @@ public enum HelpMenu {
 				.add("join (nation)", Translatable.of("nation_help_14"))
 				.add("rank", Translatable.of("nation_help_18"))
 				.add("delete", Translatable.of("nation_help_16"))
-				.add("merge [nation]", Translatable.of("king_help_8"))
+				.add("merge [empire]", Translatable.of("king_help_8"))
 				.add("say", "[message]", Translatable.of("king_help_9"))
 				.add(Translation.of("res_sing"), "deposit [$]", Translatable.of("nation_help_15"))
 				.add(Translation.of("mayor_sing"), "leave", Translatable.of("nation_help_5"))
@@ -962,7 +962,7 @@ public enum HelpMenu {
 	NATION_HELP_CONSOLE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation", Translatable.of("nation_help_1"))
+			return new MenuBuilder("empire", Translatable.of("nation_help_1"))
 				.add(Translation.of("nation_help_2"), Translatable.of("nation_help_3"))
 				.add("list", Translatable.of("nation_help_4"));
 		}
@@ -971,7 +971,7 @@ public enum HelpMenu {
 	NATION_RANK {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation rank")
+			return new MenuBuilder("empire rank")
 				.add("add/remove [resident] rank", Translatable.of("nation_help_17"));
 		}
 	},
@@ -979,7 +979,7 @@ public enum HelpMenu {
 	NATION_LIST {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation list")
+			return new MenuBuilder("empire list")
 				.add("{page #}", Translatable.of("nation_list_help_0"))
 				.add("{page #} by residents", Translatable.of("nation_list_help_0"))
 				.add("{page #} by towns", Translatable.of("nation_list_help_1"))
@@ -994,9 +994,9 @@ public enum HelpMenu {
 	NATION_SET {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation set")
+			return new MenuBuilder("empire set")
 				.add("king " + Translation.of("res_2"), Translatable.of("nation_set_help_0"))
-				.add("capital [town]", Translatable.of("nation_set_help_1"))
+				.add("capital [kingdom]", Translatable.of("nation_set_help_1"))
 				.add("taxes [$]", Translatable.of("nation_set_help_2"))
 				.add("conqueredtax [$]", Translatable.of("nation_set_help_3"))
 				.add("name [name]", Translatable.of("nation_set_help_4"))
@@ -1012,18 +1012,18 @@ public enum HelpMenu {
 	KING_HELP {
 		@Override
 		protected MenuBuilder load() {
-			MenuBuilder builder = new MenuBuilder("nation", false);
+			MenuBuilder builder = new MenuBuilder("empire", false);
 			builder.requirement = Translation.of("king_sing");
 			return builder.addTitle(Translation.of("king_help_1"))
 				.add("withdraw [$]", Translatable.of("king_help_4"))
-				.add("[add/kick] [town] .. [town]", Translatable.of("king_help_5"))
+				.add("[add/kick] [kingdom] .. [kingdom]", Translatable.of("king_help_5"))
 				.add("rank", Translatable.of("nation_help_18"))
 				.add("set [] .. []", Translatable.of("king_help_6"))
 				.add("toggle [] .. []", Translatable.of("king_help_7"))
 				.add("ally [] .. [] " + Translation.of("nation_help_2"), Translatable.of("king_help_2"))
 				.add("enemy [add/remove] " + Translation.of("nation_help_2"), Translatable.of("king_help_3"))
 				.add("delete", Translatable.of("nation_help_16"))
-				.add("merge [nation]", Translatable.of("king_help_8"))
+				.add("merge [empire]", Translatable.of("king_help_8"))
 				.add("say", "[message]", Translatable.of("king_help_9"));
 		}
 	},
@@ -1031,34 +1031,34 @@ public enum HelpMenu {
 	NATION_SANCTIONTOWN {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation sanctiontown")
-				.add("add [town]", Translatable.of("nation_sanction_help_1"))
-				.add("remove [town]", Translatable.of("nation_sanction_help_2"))
+			return new MenuBuilder("empire sanctiontown")
+				.add("add [kingdom]", Translatable.of("nation_sanction_help_1"))
+				.add("remove [kingdom]", Translatable.of("nation_sanction_help_2"))
 				.add("list", Translatable.of("nation_sanction_help_3"))
-				.add("list [nation]", Translatable.of("nation_sanction_help_4"));
+				.add("list [empire]", Translatable.of("nation_sanction_help_4"));
 		}
 	},
 
 	ALLIES_STRING {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation ally")
-				.add("add [nation]", Translatable.of("nation_ally_help_1"))
-				.add("add -[nation]", Translatable.of("nation_ally_help_7"))
-				.add("remove [nation]", Translatable.of("nation_ally_help_2"))
+			return new MenuBuilder("empire ally")
+				.add("add [empire]", Translatable.of("nation_ally_help_1"))
+				.add("add -[empire]", Translatable.of("nation_ally_help_7"))
+				.add("remove [empire]", Translatable.of("nation_ally_help_2"))
 				.add("sent", Translatable.of("nation_ally_help_3"))
 				.add("received", Translatable.of("nation_ally_help_4"))
-				.add("accept [nation]", Translatable.of("nation_ally_help_5"))
-				.add("deny [nation]", Translatable.of("nation_ally_help_6"));
+				.add("accept [empire]", Translatable.of("nation_ally_help_5"))
+				.add("deny [empire]", Translatable.of("nation_ally_help_6"));
 		}
 	},
 
 	NATION_INVITE {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation invite")
-				.add("[town]", Translatable.of("nation_invite_help_1"))
-				.add("-[town]", Translatable.of("nation_invite_help_2"))
+			return new MenuBuilder("empire invite")
+				.add("[kingdom]", Translatable.of("nation_invite_help_1"))
+				.add("-[kingdom]", Translatable.of("nation_invite_help_2"))
 				.add("sent", Translatable.of("nation_invite_help_3"));
 		}
 	},
@@ -1067,8 +1067,8 @@ public enum HelpMenu {
 		@Override
 		protected MenuBuilder load() {
 			return new MenuBuilder("invite")
-				.add(TownySettings.getAcceptCommand() + " [town]", Translatable.of("invite_help_1"))
-				.add(TownySettings.getDenyCommand() + " [town]", Translatable.of("invite_help_2"))
+				.add(TownySettings.getAcceptCommand() + " [kingdom]", Translatable.of("invite_help_1"))
+				.add(TownySettings.getDenyCommand() + " [kingdom]", Translatable.of("invite_help_2"))
 				.add(TownySettings.getDenyCommand() + " all", Translatable.of("invite_help_4"))
 				.add("list", Translatable.of("invite_help_3"));
 		}
@@ -1077,24 +1077,24 @@ public enum HelpMenu {
 	TOWN_MAYOR_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("Town Mayor Help", false)
-				.add(Translation.of("mayor_sing"), "/town", "withdraw [$]", Translatable.of("town_help_28"))
-				.add(Translation.of("mayor_sing"), "/town", "claim", Translatable.of("town_help_29"))
-				.add(Translation.of("mayor_sing"), "/town", "unclaim", Translatable.of("town_help_30"))
-				.add(Translation.of("mayor_sing"), "/town", "[add/kick] ", Translatable.of("town_help_31"))
-				.add(Translation.of("mayor_sing"), "/town", "set [] .. []", Translatable.of("town_help_32"))
-				.add(Translation.of("mayor_sing"), "/town", "buy [] .. []", Translatable.of("town_help_33"))
-				.add(Translation.of("mayor_sing"), "/town", "plots", Translatable.of("town_help_17"))
-				.add(Translation.of("mayor_sing"), "/town", "toggle", Translatable.of("town_help_34"))
-				.add(Translation.of("mayor_sing"), "/town", "rank", Translatable.of("town_help_35"))
-				.add(Translation.of("mayor_sing"), "/town", "delete", Translatable.of("town_help_24"));
+			return new MenuBuilder("kingdom Mayor Help", false)
+				.add(Translation.of("mayor_sing"), "/kingdom", "withdraw [$]", Translatable.of("town_help_28"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "claim", Translatable.of("town_help_29"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "unclaim", Translatable.of("town_help_30"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "[add/kick] ", Translatable.of("town_help_31"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "set [] .. []", Translatable.of("town_help_32"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "buy [] .. []", Translatable.of("town_help_33"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "plots", Translatable.of("town_help_17"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "toggle", Translatable.of("town_help_34"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "rank", Translatable.of("town_help_35"))
+				.add(Translation.of("mayor_sing"), "/kingdom", "delete", Translatable.of("town_help_24"));
 		}
 	},
 	
 	NATION_TOGGLE_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("nation toggle")
+			return new MenuBuilder("empire toggle")
 				.add("peaceful/neutral", Translatable.of("nation_toggle_help_0"))
 				.add("public", Translatable.of("nation_toggle_help_1"))
 				.add("open", Translatable.of("nation_toggle_help_2"))
@@ -1134,7 +1134,7 @@ public enum HelpMenu {
 	TOWN_TRUST_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town trust")
+			return new MenuBuilder("kingdom trust")
 				.add("add [resident]", Translatable.of("town_trust_help_0"))
 				.add("remove [resident]", Translatable.of("town_trust_help_1"))
 				.add("list", Translatable.of("town_trust_help_2"));
@@ -1144,9 +1144,9 @@ public enum HelpMenu {
 	TOWN_TRUSTTOWN_HELP {
 		@Override
 		protected MenuBuilder load() {
-			return new MenuBuilder("town trusttown")
-				.add("add [town]", Translatable.of("town_towntrust_help_0"))
-				.add("remove [town]", Translatable.of("town_towntrust_help_1"))
+			return new MenuBuilder("kingdom trusttown")
+				.add("add [kingdom]", Translatable.of("town_towntrust_help_0"))
+				.add("remove [kingdom]", Translatable.of("town_towntrust_help_1"))
 				.add("list", Translatable.of("town_towntrust_help_2"));
 		}
 	},
